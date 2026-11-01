@@ -119,7 +119,9 @@ main{
   border-radius:999px;
   padding:11px 22px;
   cursor:pointer;
-  transition:.2s
+  transition:.2s;
+  text-decoration:none;
+  display:inline-block
 }
 
 .btn:hover{
@@ -210,6 +212,14 @@ main{
   padding:36px 10px;
   grid-column:1/-1;
   font-size:14px
+}
+
+/* BOTÓN VOLVER */
+
+.back{
+  display:flex;
+  justify-content:center;
+  margin:52px 0 10px
 }
 
 /* FORMULARIO */
@@ -361,6 +371,10 @@ main{
   .letter summary{
     min-height:110px;
   }
+
+  .back{
+    margin-top:48px;
+  }
 }
 </style>
 </head>
@@ -392,6 +406,10 @@ main{
 <section class="letters" id="letters" aria-live="polite">
   <p class="empty">Cargando vuestras cartas…</p>
 </section>
+
+<div class="back">
+  <a class="btn" href="https://blancamia.wordpress.com">← Volver</a>
+</div>
 
 </main>
 
