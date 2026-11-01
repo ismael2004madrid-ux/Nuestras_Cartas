@@ -26,7 +26,9 @@ fuente_subtitulo = ImageFont.truetype(
 
 # Aplicar grosor 700 si la fuente es variable
 fuente_principal.set_variation_by_axes([700])
-fuente_subtitulo.set_variation_by_axes([700])
+texto_subtitulo = "Desde el 2 de octubre de 2026"
+corazon = "♥"
+fuente_corazon = ImageFont.truetype("fonts/Corazon.ttf", 32)
 
 # Textos
 texto_principal = f"Llevamos {dias} días juntos"
