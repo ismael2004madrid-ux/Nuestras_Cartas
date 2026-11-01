@@ -1,0 +1,40 @@
+name: Actualizar contador
+
+on:
+  schedule:
+    - cron: '5 5 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  actualizar:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Descargar repositorio
+        uses: actions/checkout@v4
+
+      - name: Preparar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Instalar Pillow
+        run: pip install pillow
+
+      - name: Descargar tipografía Domine
+        run: |
+          mkdir -p fonts
+          curl -L 'https://raw.githubusercontent.com/google/fonts/main/ofl/domine/Domine%5Bwght%5D.ttf' -o fonts/Domine.ttf
+          curl -L 'https://raw.githubusercontent.com/google/fonts/main/ofl/domine/Domine-Italic%5Bwght%5D.ttf' -o fonts/Domine-Italic.ttf
+
+      - name: Generar contador
+        run: python generar_contador.py
+
+      - name: Guardar imagen actualizada
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: Actualizar contador diario
+          file_pattern: contador.png
