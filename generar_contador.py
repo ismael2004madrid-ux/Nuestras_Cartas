@@ -45,9 +45,16 @@ dibujo.text((x1, 35), texto_principal, font=fuente_principal, fill=COLOR)
 caja2 = dibujo.textbbox((0, 0), texto_subtitulo, font=fuente_subtitulo)
 ancho2 = caja2[2] - caja2[0]
 
-caja_corazon = dibujo.textbbox((0, 0), corazon, font=fuente_corazon)
-ancho_corazon = caja_corazon[2] - caja_corazon[0]
+# Dibujar el corazón con DejaVu Sans
+corazon = "\u2665"
+fuente_corazon = ImageFont.truetype(
+    "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 32
+)
 
+caja2 = dibujo.textbbox((0, 0), texto_subtitulo, font=fuente_subtitulo)
+ancho2 = caja2[2] - caja2[0]
+
+ancho_corazon = dibujo.textlength(corazon, font=fuente_corazon)
 espacio = 12
 ancho_total = ancho2 + espacio + ancho_corazon
 x2 = (ANCHO - ancho_total) / 2
