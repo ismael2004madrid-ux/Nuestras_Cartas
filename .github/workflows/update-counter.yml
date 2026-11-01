@@ -30,6 +30,7 @@ jobs:
           curl -fL 'https://raw.githubusercontent.com/google/fonts/main/ofl/domine/Domine%5Bwght%5D.ttf' -o fonts/Domine.ttf
           cp fonts/Domine.ttf fonts/Domine-Italic.ttf
           file fonts/Domine.ttf
+          curl -fL 'https://raw.githubusercontent.com/google/fonts/main/ofl/notosanssymbols2/NotoSansSymbols2-Regular.ttf' -o fonts/Corazon.ttf
           
       - name: Generar contador
         run: python generar_contador.py
