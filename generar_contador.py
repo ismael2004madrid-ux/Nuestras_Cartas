@@ -34,7 +34,7 @@ fuente_corazon = ImageFont.truetype(
 
 # Textos
 texto_principal = f"Llevamos {dias} días juntos"
-texto_subtitulo = "Desde el 2 de octubre de 2026 ♥"
+texto_subtitulo = "Desde el 2 de octubre de 2026"
 
 # Centrar textos
 caja1 = dibujo.textbbox((0, 0), texto_principal, font=fuente_principal)
