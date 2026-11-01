@@ -27,9 +27,10 @@ jobs:
       - name: Descargar tipografía Domine
         run: |
           mkdir -p fonts
-          curl -L 'https://raw.githubusercontent.com/google/fonts/main/ofl/domine/Domine%5Bwght%5D.ttf' -o fonts/Domine.ttf
-          curl -L 'https://raw.githubusercontent.com/google/fonts/main/ofl/domine/Domine-Italic%5Bwght%5D.ttf' -o fonts/Domine-Italic.ttf
-
+          curl -fL 'https://raw.githubusercontent.com/google/fonts/main/ofl/domine/Domine%5Bwght%5D.ttf' -o fonts/Domine.ttf
+          cp fonts/Domine.ttf fonts/Domine-Italic.ttf
+          file fonts/Domine.ttf
+          
       - name: Generar contador
         run: python generar_contador.py
 
