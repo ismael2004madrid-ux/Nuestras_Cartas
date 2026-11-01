@@ -1,3 +1,4 @@
+```html
 <!doctype html>
 <html lang="es">
 <head>
@@ -5,42 +6,668 @@
 <title>Nuestras cartas</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Domine:wght@400;700&display=swap" rel="stylesheet">
+
 <style>
-:root{--paper:#f3f2e9;--card:#e7e8dc;--green:#536b58;--sage:#a9b69e;--ink:#34483a;--muted:#788675;--line:#d2d7ca}
-*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:italic 700 16px/1.65 'Domine',Georgia,serif}
-main{max-width:760px;margin:auto;padding:52px 22px 80px}.head{text-align:center;margin-bottom:36px}.head h1{font-size:clamp(21px,3.8vw,28px);font-weight:700;color:var(--ink);margin:0 0 10px}.head p{font-size:13px;letter-spacing:0;color:var(--muted);font-weight:400;font-style:italic;margin:0}.rule{width:90px;height:1px;background:var(--sage);margin:22px auto 0}
-.actions{display:flex;justify-content:center;margin:0 0 28px}.btn{font:inherit;font-size:14px;color:var(--ink);background:transparent;border:1px solid var(--sage);border-radius:999px;padding:11px 22px;cursor:pointer;transition:.2s}.btn:hover{background:#e6e9df}.letters{display:grid;grid-template-columns:1fr;gap:14px}.letter{border:1px solid var(--line);background:var(--card);border-radius:8px;overflow:hidden}.letter summary{list-style:none;cursor:pointer;padding:20px;min-height:130px;display:flex;flex-direction:column;justify-content:space-between;gap:12px}.letter summary::-webkit-details-marker{display:none}.envtop{display:flex;justify-content:space-between;align-items:center}.envicon{color:var(--green);font-size:28px}.date{font-size:12px;color:var(--muted)}.subject{font-size:15px}.signature-preview{font-size:12px;color:var(--muted);font-weight:400;font-style:italic;margin-top:2px}.letter[open] summary{border-bottom:1px solid var(--line)}.letterbody{padding:22px;background:#faf9f3;font-weight:400;font-style:normal;white-space:pre-wrap}.sign{margin-top:18px;text-align:right;font-weight:700;font-style:italic}.empty{text-align:center;color:var(--muted);padding:36px 10px;grid-column:1/-1;font-size:14px}
-.overlay{display:none;position:fixed;inset:0;background:#26372dbb;padding:20px;align-items:center;justify-content:center;z-index:5}.overlay.show{display:flex}.formcard{width:min(100%,540px);max-height:90vh;overflow:auto;background:var(--paper);border-radius:12px;padding:28px;box-shadow:0 18px 60px #17231944}.formhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}.formhead h2{font-size:22px;margin:0}.close{border:0;background:none;color:var(--green);font:inherit;font-size:24px;cursor:pointer}.field{display:block;margin:17px 0 7px}.formcard input,.formcard textarea{width:100%;border:1px solid var(--line);border-radius:6px;background:#fffefa;padding:12px;color:var(--ink);font:400 15px/1.6 'Domine',Georgia,serif}.formcard textarea{min-height:170px;resize:vertical}.formbuttons{display:flex;gap:10px;justify-content:flex-end;margin-top:20px}.hint{font:400 12px/1.5 'Domine',Georgia,serif;color:var(--muted);margin-top:12px}.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:var(--green);color:white;padding:10px 16px;border-radius:99px;font:400 13px 'Domine',Georgia,serif;display:none}.toast.show{display:block}
-@media(max-width:520px){main{padding-top:36px}.letters{grid-template-columns:1fr}.letter summary{min-height:110px}}
-</style></head>
-<body><main>
-<header class="head"><h1>NUESTRAS ✉︎ CARTAS</h1><p>Para esas palabras que son importantes, y queremos que el otro encuentre algún día.</p><div class="rule"></div></header>
-<div class="actions"><button class="btn" id="openForm">＋ Escribir una carta</button></div>
-<section class="letters" id="letters" aria-live="polite"><p class="empty">Cargando vuestras cartas…</p></section></main>
-<div class="overlay" id="overlay"><form class="formcard" id="letterForm"><div class="formhead"><h2>Escribir una carta</h2><button type="button" class="close" id="closeForm" aria-label="Cerrar">×</button></div>
-<label class="field" for="title">Título de la carta</label><input id="title" name="title" type="text" placeholder="Ponle un título a tu carta" maxlength="70" required>
-<label class="field" for="date">¿Qué día escribes esto?</label><input id="date" name="date" type="date" required>
-<label class="field" for="message">Escribe tu carta</label><textarea id="message" name="message" placeholder="Escribe aquí todo lo que quieras contar…" required></textarea>
-<label class="field" for="signature">Firma</label><input id="signature" name="signature" type="text" placeholder="Tu firma" required>
-<p class="hint">Al guardar, la carta aparecerá la primera en el buzón.</p><div class="formbuttons"><button type="button" class="btn" id="cancel">Cancelar</button><button class="btn" type="submit">Guardar carta ♡</button></div></form></div><div class="toast" id="toast">Carta añadida a esta vista de prueba</div>
+:root{
+  --paper:#f3f2e9;
+  --card:#e7e8dc;
+  --green:#536b58;
+  --sage:#a9b69e;
+  --ink:#34483a;
+  --muted:#788675;
+  --line:#d2d7ca
+}
+
+*{
+  box-sizing:border-box
+}
+
+html,body{
+  margin:0;
+  padding:0;
+  background:var(--paper);
+  color:var(--ink);
+  font:italic 700 16px/1.65 'Domine',Georgia,serif
+}
+
+body{
+  overflow-x:hidden
+}
+
+/* =========================
+   CABECERA CON GIF
+   ========================= */
+
+.hero{
+  position:relative;
+  width:100%;
+  height:330px;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+}
+
+.hero-gif{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center center;
+  z-index:0;
+}
+
+.hero::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:rgba(5,12,35,.10);
+  z-index:1;
+  pointer-events:none;
+}
+
+.head{
+  position:relative;
+  z-index:2;
+  width:min(760px,100%);
+  padding:30px 22px 20px;
+  text-align:center;
+  margin:0 auto;
+}
+
+.head h1{
+  font-size:clamp(21px,3.8vw,28px);
+  font-weight:700;
+  color:#f3f2e9;
+  margin:0 0 10px;
+  text-shadow:0 2px 5px rgba(0,0,0,.55)
+}
+
+.head p{
+  font-size:13px;
+  letter-spacing:0;
+  color:#f3f2e9;
+  font-weight:400;
+  font-style:italic;
+  margin:0;
+  text-shadow:0 2px 5px rgba(0,0,0,.65)
+}
+
+.rule{
+  width:90px;
+  height:1px;
+  background:#a9b69e;
+  margin:22px auto 0;
+  box-shadow:0 1px 3px rgba(0,0,0,.35)
+}
+
+/* =========================
+   CONTENIDO
+   ========================= */
+
+main{
+  max-width:760px;
+  margin:auto;
+  padding:0 22px 80px
+}
+
+.actions{
+  display:flex;
+  justify-content:center;
+  margin:34px 0 32px
+}
+
+.btn{
+  font:inherit;
+  font-size:14px;
+  color:var(--ink);
+  background:transparent;
+  border:1px solid var(--sage);
+  border-radius:999px;
+  padding:11px 22px;
+  cursor:pointer;
+  transition:.2s
+}
+
+.btn:hover{
+  background:#e6e9df
+}
+
+.letters{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:14px
+}
+
+.letter{
+  border:1px solid var(--line);
+  background:var(--card);
+  border-radius:8px;
+  overflow:hidden
+}
+
+.letter summary{
+  list-style:none;
+  cursor:pointer;
+  padding:20px;
+  min-height:130px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  gap:12px
+}
+
+.letter summary::-webkit-details-marker{
+  display:none
+}
+
+.envtop{
+  display:flex;
+  justify-content:space-between;
+  align-items:center
+}
+
+.envicon{
+  color:var(--green);
+  font-size:28px
+}
+
+.date{
+  font-size:12px;
+  color:var(--muted)
+}
+
+.subject{
+  font-size:15px
+}
+
+.signature-preview{
+  font-size:12px;
+  color:var(--muted);
+  font-weight:400;
+  font-style:italic;
+  margin-top:2px
+}
+
+.letter[open] summary{
+  border-bottom:1px solid var(--line)
+}
+
+.letterbody{
+  padding:22px;
+  background:#faf9f3;
+  font-weight:400;
+  font-style:normal;
+  white-space:pre-wrap
+}
+
+.sign{
+  margin-top:18px;
+  text-align:right;
+  font-weight:700;
+  font-style:italic
+}
+
+.empty{
+  text-align:center;
+  color:var(--muted);
+  padding:36px 10px;
+  grid-column:1/-1;
+  font-size:14px
+}
+
+/* =========================
+   FORMULARIO
+   ========================= */
+
+.overlay{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:#26372dbb;
+  padding:20px;
+  align-items:center;
+  justify-content:center;
+  z-index:5
+}
+
+.overlay.show{
+  display:flex
+}
+
+.formcard{
+  width:min(100%,540px);
+  max-height:90vh;
+  overflow:auto;
+  background:var(--paper);
+  border-radius:12px;
+  padding:28px;
+  box-shadow:0 18px 60px #17231944
+}
+
+.formhead{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:20px
+}
+
+.formhead h2{
+  font-size:22px;
+  margin:0
+}
+
+.close{
+  border:0;
+  background:none;
+  color:var(--green);
+  font:inherit;
+  font-size:24px;
+  cursor:pointer
+}
+
+.field{
+  display:block;
+  margin:17px 0 7px
+}
+
+.formcard input,
+.formcard textarea{
+  width:100%;
+  border:1px solid var(--line);
+  border-radius:6px;
+  background:#fffefa;
+  padding:12px;
+  color:var(--ink);
+  font:400 15px/1.6 'Domine',Georgia,serif
+}
+
+.formcard textarea{
+  min-height:170px;
+  resize:vertical
+}
+
+.formbuttons{
+  display:flex;
+  gap:10px;
+  justify-content:flex-end;
+  margin-top:20px
+}
+
+.hint{
+  font:400 12px/1.5 'Domine',Georgia,serif;
+  color:var(--muted);
+  margin-top:12px
+}
+
+.toast{
+  position:fixed;
+  bottom:18px;
+  left:50%;
+  transform:translateX(-50%);
+  background:var(--green);
+  color:white;
+  padding:10px 16px;
+  border-radius:99px;
+  font:400 13px 'Domine',Georgia,serif;
+  display:none
+}
+
+.toast.show{
+  display:block
+}
+
+/* =========================
+   MÓVIL
+   ========================= */
+
+@media(max-width:520px){
+
+  .hero{
+    height:285px;
+  }
+
+  .hero-gif{
+    object-position:center center;
+  }
+
+  .head{
+    padding:24px 18px 18px;
+  }
+
+  .head h1{
+    font-size:21px;
+    margin-bottom:9px;
+  }
+
+  .head p{
+    font-size:12px;
+    line-height:1.6;
+  }
+
+  .rule{
+    margin-top:18px;
+  }
+
+  main{
+    padding:0 22px 70px;
+  }
+
+  .actions{
+    margin:30px 0 30px;
+  }
+
+  .letters{
+    grid-template-columns:1fr;
+  }
+
+  .letter summary{
+    min-height:110px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- =========================
+     CABECERA
+     ========================= -->
+
+<section class="hero">
+
+  <img
+    class="hero-gif"
+    src="fondo-cartas.gif"
+    alt=""
+    aria-hidden="true"
+  >
+
+  <header class="head">
+    <h1>NUESTRAS ✉︎ CARTAS</h1>
+    <p>Para esas palabras que son importantes, y queremos que el otro encuentre algún día.</p>
+    <div class="rule"></div>
+  </header>
+
+</section>
+
+<!-- =========================
+     CONTENIDO DE LA WEB
+     ========================= -->
+
+<main>
+
+<div class="actions">
+  <button class="btn" id="openForm">＋ Escribir una carta</button>
+</div>
+
+<section class="letters" id="letters" aria-live="polite">
+  <p class="empty">Cargando vuestras cartas…</p>
+</section>
+
+</main>
+
+<!-- =========================
+     FORMULARIO
+     ========================= -->
+
+<div class="overlay" id="overlay">
+
+<form class="formcard" id="letterForm">
+
+<div class="formhead">
+  <h2>Escribir una carta</h2>
+  <button type="button" class="close" id="closeForm" aria-label="Cerrar">×</button>
+</div>
+
+<label class="field" for="title">Título de la carta</label>
+<input id="title" name="title" type="text" placeholder="Ponle un título a tu carta" maxlength="70" required>
+
+<label class="field" for="date">¿Qué día escribes esto?</label>
+<input id="date" name="date" type="date" required>
+
+<label class="field" for="message">Escribe tu carta</label>
+<textarea id="message" name="message" placeholder="Escribe aquí todo lo que quieras contar…" required></textarea>
+
+<label class="field" for="signature">Firma</label>
+<input id="signature" name="signature" type="text" placeholder="Tu firma" required>
+
+<p class="hint">
+  Al guardar, la carta aparecerá la primera en el buzón.
+</p>
+
+<div class="formbuttons">
+  <button type="button" class="btn" id="cancel">Cancelar</button>
+  <button class="btn" type="submit">Guardar carta ♡</button>
+</div>
+
+</form>
+
+</div>
+
+<div class="toast" id="toast">
+  Carta añadida a esta vista de prueba
+</div>
+
 <script>
 (()=>{
 
 const SUPABASE_URL="https://opswexuksplsysgtmajz.supabase.co";
 const SUPABASE_ANON_KEY="sb_publishable_OJ4xv5YVnCyLNA6L9P8D4w_M4s2AkBz";
 const API_URL=`${SUPABASE_URL}/rest/v1/letters`;
-const headers={apikey:SUPABASE_ANON_KEY,Authorization:`Bearer ${SUPABASE_ANON_KEY}`};
-const overlay=document.getElementById('overlay'),form=document.getElementById('letterForm'),letters=document.getElementById('letters');
+const headers={
+  apikey:SUPABASE_ANON_KEY,
+  Authorization:`Bearer ${SUPABASE_ANON_KEY}`
+};
+
+const overlay=document.getElementById('overlay');
+const form=document.getElementById('letterForm');
+const letters=document.getElementById('letters');
+
 let savedLetters=[];
-function formatDate(value){if(!value)return '';const parts=value.split('-');return `${parts[2]}/${parts[1]}/${parts[0]}`}
-function makeCard(item){const card=document.createElement('details');card.className='letter';const summary=document.createElement('summary');const top=document.createElement('div');top.className='envtop';const icon=document.createElement('span');icon.className='envicon';icon.textContent='✉';const dt=document.createElement('span');dt.className='date';dt.textContent=formatDate(item.date);top.append(icon,dt);const subject=document.createElement('span');subject.className='subject';subject.textContent=item.title;const signaturePreview=document.createElement('span');signaturePreview.className='signature-preview';signaturePreview.textContent='— '+item.signature;summary.append(top,subject,signaturePreview);const body=document.createElement('div');body.className='letterbody';body.append(document.createTextNode(item.message));const sign=document.createElement('div');sign.className='sign';sign.textContent='— '+item.signature;body.append(sign);card.append(summary,body);return card}
-function renderLetters(){letters.replaceChildren();if(!savedLetters.length){const empty=document.createElement('p');empty.className='empty';empty.textContent='Todavía no hay cartas. Podéis escribir la primera ♡';letters.append(empty);return}savedLetters.forEach(item=>letters.append(makeCard(item)))}
-async function fetchLetters(){letters.innerHTML='<p class="empty">Cargando vuestras cartas…</p>';try{const response=await fetch(`${API_URL}?select=id,title,letter_date,message,signature,created_at&order=created_at.desc`,{headers:{...headers,Accept:'application/json'}});if(!response.ok){const detail=await response.text();throw new Error(`Supabase (${response.status}): ${detail}`)}const data=await response.json();savedLetters=data.map(row=>({id:row.id,title:row.title,date:row.letter_date,message:row.message,signature:row.signature,createdAt:new Date(row.created_at).getTime()}));renderLetters()}catch(error){letters.innerHTML='<p class="empty">No se han podido cargar las cartas. Comprueba la conexión e inténtalo de nuevo.</p>';console.error('Error al cargar las cartas:',error)}}
-function show(){overlay.classList.add('show')}function hide(){overlay.classList.remove('show')}
-document.getElementById('openForm').addEventListener('click',show);document.getElementById('closeForm').addEventListener('click',hide);document.getElementById('cancel').addEventListener('click',hide);
-overlay.addEventListener('click',e=>{if(e.target===overlay)hide()});
-form.addEventListener('submit',async e=>{e.preventDefault();if(!form.reportValidity())return;const submitButton=form.querySelector('button[type="submit"]');submitButton.disabled=true;submitButton.textContent='Guardando…';const item={title:document.getElementById('title').value.trim(),letter_date:document.getElementById('date').value,message:document.getElementById('message').value.trim(),signature:document.getElementById('signature').value.trim()};try{const response=await fetch(API_URL,{method:'POST',headers:{...headers,'Content-Type':'application/json',Prefer:'return=minimal'},body:JSON.stringify(item)});if(!response.ok){const detail=await response.text();throw new Error(`Supabase (${response.status}): ${detail}`)}form.reset();hide();await fetchLetters();const toast=document.getElementById('toast');toast.textContent='Carta guardada en vuestro buzón ♡';toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),2400)}catch(error){console.error('Error al guardar la carta:',error);alert('No se ha podido guardar la carta. Comprueba la conexión e inténtalo de nuevo.');}finally{submitButton.disabled=false;submitButton.textContent='Guardar carta ♡'}});
+
+function formatDate(value){
+  if(!value)return '';
+  const parts=value.split('-');
+  return `${parts[2]}/${parts[1]}/${parts[0]}`
+}
+
+function makeCard(item){
+
+  const card=document.createElement('details');
+  card.className='letter';
+
+  const summary=document.createElement('summary');
+
+  const top=document.createElement('div');
+  top.className='envtop';
+
+  const icon=document.createElement('span');
+  icon.className='envicon';
+  icon.textContent='✉';
+
+  const dt=document.createElement('span');
+  dt.className='date';
+  dt.textContent=formatDate(item.date);
+
+  top.append(icon,dt);
+
+  const subject=document.createElement('span');
+  subject.className='subject';
+  subject.textContent=item.title;
+
+  const signaturePreview=document.createElement('span');
+  signaturePreview.className='signature-preview';
+  signaturePreview.textContent='— '+item.signature;
+
+  summary.append(top,subject,signaturePreview);
+
+  const body=document.createElement('div');
+  body.className='letterbody';
+  body.append(document.createTextNode(item.message));
+
+  const sign=document.createElement('div');
+  sign.className='sign';
+  sign.textContent='— '+item.signature;
+
+  body.append(sign);
+  card.append(summary,body);
+
+  return card
+}
+
+function renderLetters(){
+
+  letters.replaceChildren();
+
+  if(!savedLetters.length){
+
+    const empty=document.createElement('p');
+    empty.className='empty';
+    empty.textContent='Todavía no hay cartas. Podéis escribir la primera ♡';
+
+    letters.append(empty);
+    return
+  }
+
+  savedLetters.forEach(item=>letters.append(makeCard(item)))
+}
+
+async function fetchLetters(){
+
+  letters.innerHTML='<p class="empty">Cargando vuestras cartas…</p>';
+
+  try{
+
+    const response=await fetch(
+      `${API_URL}?select=id,title,letter_date,message,signature,created_at&order=created_at.desc`,
+      {
+        headers:{
+          ...headers,
+          Accept:'application/json'
+        }
+      }
+    );
+
+    if(!response.ok){
+
+      const detail=await response.text();
+      throw new Error(`Supabase (${response.status}): ${detail}`)
+    }
+
+    const data=await response.json();
+
+    savedLetters=data.map(row=>({
+      id:row.id,
+      title:row.title,
+      date:row.letter_date,
+      message:row.message,
+      signature:row.signature,
+      createdAt:new Date(row.created_at).getTime()
+    }));
+
+    renderLetters()
+
+  }catch(error){
+
+    letters.innerHTML='<p class="empty">No se han podido cargar las cartas. Comprueba la conexión e inténtalo de nuevo.</p>';
+
+    console.error('Error al cargar las cartas:',error)
+  }
+}
+
+function show(){
+  overlay.classList.add('show')
+}
+
+function hide(){
+  overlay.classList.remove('show')
+}
+
+document.getElementById('openForm').addEventListener('click',show);
+document.getElementById('closeForm').addEventListener('click',hide);
+document.getElementById('cancel').addEventListener('click',hide);
+
+overlay.addEventListener('click',e=>{
+  if(e.target===overlay)hide()
+});
+
+form.addEventListener('submit',async e=>{
+
+  e.preventDefault();
+
+  if(!form.reportValidity())return;
+
+  const submitButton=form.querySelector('button[type="submit"]');
+
+  submitButton.disabled=true;
+  submitButton.textContent='Guardando…';
+
+  const item={
+    title:document.getElementById('title').value.trim(),
+    letter_date:document.getElementById('date').value,
+    message:document.getElementById('message').value.trim(),
+    signature:document.getElementById('signature').value.trim()
+  };
+
+  try{
+
+    const response=await fetch(
+      API_URL,
+      {
+        method:'POST',
+        headers:{
+          ...headers,
+          'Content-Type':'application/json',
+          Prefer:'return=minimal'
+        },
+        body:JSON.stringify(item)
+      }
+    );
+
+    if(!response.ok){
+
+      const detail=await response.text();
+      throw new Error(`Supabase (${response.status}): ${detail}`)
+    }
+
+    form.reset();
+    hide();
+
+    await fetchLetters();
+
+    const toast=document.getElementById('toast');
+
+    toast.textContent='Carta guardada en vuestro buzón ♡';
+    toast.classList.add('show');
+
+    setTimeout(()=>{
+      toast.classList.remove('show')
+    },2400)
+
+  }catch(error){
+
+    console.error('Error al guardar la carta:',error);
+
+    alert(
+      'No se ha podido guardar la carta. Comprueba la conexión e inténtalo de nuevo.'
+    );
+
+  }finally{
+
+    submitButton.disabled=false;
+    submitButton.textContent='Guardar carta ♡'
+  }
+
+});
+
 fetchLetters();
 
 })();
-</script></body></html>
+</script>
+
+</body>
+</html>
+```
