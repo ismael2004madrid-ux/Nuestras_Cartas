@@ -5,7 +5,7 @@ from pathlib import Path
 
 # Configuración
 FECHA_INICIO = date(2026, 10, 2)
-COLOR = "#713D4B"
+COLOR = "#DB8B00"
 ANCHO, ALTO = 1400, 220
 
 # Calcular días transcurridos en España
