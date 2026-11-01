@@ -34,10 +34,157 @@ html,body{
 }
 
 body{
-  overflow-x:hidden
+  overflow-x:hidden;
 }
 
-/* CABECERA CON GIF */
+/* =========================
+   FONDO ESTRELLADO
+   ========================= */
+
+.stars{
+  position:fixed;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  overflow:hidden;
+  background:var(--paper);
+}
+
+.stars::before,
+.stars::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  image-rendering:pixelated;
+}
+
+/* Capa de estrellas pequeñas */
+
+.stars::before{
+  width:2px;
+  height:2px;
+  background:#eef2ff;
+  box-shadow:
+    7vw 8vh #eef2ff,
+    15vw 18vh #eef2ff,
+    23vw 6vh #eef2ff,
+    31vw 25vh #eef2ff,
+    39vw 12vh #eef2ff,
+    48vw 7vh #eef2ff,
+    56vw 22vh #eef2ff,
+    65vw 11vh #eef2ff,
+    73vw 29vh #eef2ff,
+    82vw 7vh #eef2ff,
+    91vw 18vh #eef2ff,
+    96vw 34vh #eef2ff,
+
+    5vw 42vh #eef2ff,
+    14vw 55vh #eef2ff,
+    21vw 38vh #eef2ff,
+    29vw 62vh #eef2ff,
+    37vw 47vh #eef2ff,
+    46vw 56vh #eef2ff,
+    54vw 40vh #eef2ff,
+    63vw 67vh #eef2ff,
+    72vw 49vh #eef2ff,
+    81vw 59vh #eef2ff,
+    89vw 43vh #eef2ff,
+    97vw 72vh #eef2ff,
+
+    9vw 81vh #eef2ff,
+    18vw 92vh #eef2ff,
+    27vw 76vh #eef2ff,
+    36vw 88vh #eef2ff,
+    45vw 79vh #eef2ff,
+    57vw 94vh #eef2ff,
+    68vw 83vh #eef2ff,
+    78vw 91vh #eef2ff,
+    87vw 77vh #eef2ff,
+    95vw 89vh #eef2ff;
+
+  animation:twinkleSmall 4.8s steps(2,end) infinite;
+}
+
+/* Capa de estrellas ligeramente mayores */
+
+.stars::after{
+  width:3px;
+  height:3px;
+  background:#dce6ff;
+  box-shadow:
+    12vw 12vh #dce6ff,
+    27vw 17vh #dce6ff,
+    44vw 28vh #dce6ff,
+    61vw 15vh #dce6ff,
+    78vw 21vh #dce6ff,
+    93vw 9vh #dce6ff,
+
+    8vw 64vh #dce6ff,
+    25vw 52vh #dce6ff,
+    42vw 72vh #dce6ff,
+    59vw 48vh #dce6ff,
+    76vw 69vh #dce6ff,
+    92vw 57vh #dce6ff,
+
+    16vw 86vh #dce6ff,
+    33vw 96vh #dce6ff,
+    52vw 85vh #dce6ff,
+    71vw 95vh #dce6ff,
+    88vw 82vh #dce6ff;
+
+  animation:twinkleLarge 7s steps(3,end) infinite;
+}
+
+@keyframes twinkleSmall{
+  0%,100%{
+    opacity:.18;
+  }
+  20%{
+    opacity:.8;
+  }
+  42%{
+    opacity:.25;
+  }
+  67%{
+    opacity:1;
+  }
+  84%{
+    opacity:.35;
+  }
+}
+
+@keyframes twinkleLarge{
+  0%,100%{
+    opacity:.7;
+  }
+  18%{
+    opacity:.15;
+  }
+  38%{
+    opacity:1;
+  }
+  59%{
+    opacity:.3;
+  }
+  78%{
+    opacity:.85;
+  }
+}
+
+/* =========================
+   CONTENIDO PRINCIPAL
+   ========================= */
+
+.hero,
+main,
+.bottom-hero{
+  position:relative;
+  z-index:1;
+}
+
+/* =========================
+   CABECERA CON GIF
+   ========================= */
 
 .hero{
   position:relative;
@@ -96,12 +243,14 @@ body{
   text-shadow:0 2px 5px rgba(0,0,0,.65)
 }
 
-/* CONTENIDO */
+/* =========================
+   CONTENIDO
+   ========================= */
 
 main{
   max-width:760px;
   margin:auto;
-  padding:0 22px 80px
+  padding:0 22px 20px
 }
 
 .actions{
@@ -214,7 +363,32 @@ main{
   font-size:14px
 }
 
-/* BOTÓN VOLVER */
+/* =========================
+   GIF INFERIOR
+   ========================= */
+
+.bottom-hero{
+  width:100%;
+  height:330px;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:var(--paper);
+}
+
+.bottom-gif{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center center;
+  display:block;
+  image-rendering:pixelated;
+}
+
+/* =========================
+   BOTÓN VOLVER
+   ========================= */
 
 .back{
   display:flex;
@@ -222,7 +396,9 @@ main{
   margin:52px 0 10px
 }
 
-/* FORMULARIO */
+/* =========================
+   FORMULARIO
+   ========================= */
 
 .overlay{
   display:none;
@@ -330,7 +506,9 @@ main{
   display:block
 }
 
-/* MÓVIL */
+/* =========================
+   MÓVIL
+   ========================= */
 
 @media(max-width:520px){
 
@@ -357,7 +535,7 @@ main{
   }
 
   main{
-    padding:0 22px 70px;
+    padding:0 22px 20px;
   }
 
   .actions{
@@ -372,6 +550,16 @@ main{
     min-height:110px;
   }
 
+  .bottom-hero{
+    height:310px;
+  }
+
+  .bottom-gif{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+  }
+
   .back{
     margin-top:48px;
   }
@@ -380,6 +568,11 @@ main{
 </head>
 
 <body>
+
+<!-- FONDO DINÁMICO -->
+<div class="stars" aria-hidden="true"></div>
+
+<!-- CABECERA -->
 
 <section class="hero">
 
@@ -397,6 +590,8 @@ main{
 
 </section>
 
+<!-- CONTENIDO -->
+
 <main>
 
 <div class="actions">
@@ -412,6 +607,19 @@ main{
 </div>
 
 </main>
+
+<!-- GIF INFERIOR -->
+
+<section class="bottom-hero">
+  <img
+    class="bottom-gif"
+    src="kirby_stars_transparent.gif"
+    alt=""
+    aria-hidden="true"
+  >
+</section>
+
+<!-- FORMULARIO -->
 
 <div class="overlay" id="overlay">
 
@@ -457,6 +665,7 @@ main{
 const SUPABASE_URL="https://opswexuksplsysgtmajz.supabase.co";
 const SUPABASE_ANON_KEY="sb_publishable_OJ4xv5YVnCyLNA6L9P8D4w_M4s2AkBz";
 const API_URL=`${SUPABASE_URL}/rest/v1/letters`;
+
 const headers={
   apikey:SUPABASE_ANON_KEY,
   Authorization:`Bearer ${SUPABASE_ANON_KEY}`
