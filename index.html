@@ -1,10 +1,12 @@
-```html
 <!doctype html>
 <html lang="es">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Nuestras cartas</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Domine:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
@@ -34,9 +36,7 @@ body{
   overflow-x:hidden
 }
 
-/* =========================
-   CABECERA CON GIF
-   ========================= */
+/* CABECERA CON GIF */
 
 .hero{
   position:relative;
@@ -95,17 +95,7 @@ body{
   text-shadow:0 2px 5px rgba(0,0,0,.65)
 }
 
-.rule{
-  width:90px;
-  height:1px;
-  background:#a9b69e;
-  margin:22px auto 0;
-  box-shadow:0 1px 3px rgba(0,0,0,.35)
-}
-
-/* =========================
-   CONTENIDO
-   ========================= */
+/* CONTENIDO */
 
 main{
   max-width:760px;
@@ -218,9 +208,7 @@ main{
   font-size:14px
 }
 
-/* =========================
-   FORMULARIO
-   ========================= */
+/* FORMULARIO */
 
 .overlay{
   display:none;
@@ -319,9 +307,7 @@ main{
   display:block
 }
 
-/* =========================
-   MÓVIL
-   ========================= */
+/* MÓVIL */
 
 @media(max-width:520px){
 
@@ -347,10 +333,6 @@ main{
     line-height:1.6;
   }
 
-  .rule{
-    margin-top:18px;
-  }
-
   main{
     padding:0 22px 70px;
   }
@@ -372,10 +354,6 @@ main{
 
 <body>
 
-<!-- =========================
-     CABECERA
-     ========================= -->
-
 <section class="hero">
 
   <img
@@ -388,14 +366,9 @@ main{
   <header class="head">
     <h1>NUESTRAS ✉︎ CARTAS</h1>
     <p>Para esas palabras que son importantes, y queremos que el otro encuentre algún día.</p>
-    <div class="rule"></div>
   </header>
 
 </section>
-
-<!-- =========================
-     CONTENIDO DE LA WEB
-     ========================= -->
 
 <main>
 
@@ -408,10 +381,6 @@ main{
 </section>
 
 </main>
-
-<!-- =========================
-     FORMULARIO
-     ========================= -->
 
 <div class="overlay" id="overlay">
 
@@ -670,4 +639,3 @@ fetchLetters();
 
 </body>
 </html>
-```
