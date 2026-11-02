@@ -185,11 +185,10 @@ main{
 
 .hero-gif{
   position:absolute;
-  top:-42.857%;
-  left:0;
+  inset:0;
 
   width:100%;
-  height:142.857%;
+  height:100%;
 
   object-fit:cover;
   object-position:center center;
@@ -221,22 +220,33 @@ main{
 }
 
 .head h1{
-  font-size:clamp(21px,3.8vw,28px);
+  position:relative;
+  z-index:3;
+  font-size:clamp(28px,5vw,48px);
+  line-height:1.2;
+  letter-spacing:.045em;
   font-weight:500;
   font-style:italic;
+  margin:0;
   color:#F0E9DA;
-  margin:0 0 10px;
   text-shadow:0 2px 12px rgba(0,0,0,.95),0 0 28px rgba(0,0,0,.75);
 }
 
 .head p{
+  position:relative;
+  z-index:3;
   font-size:13px;
-  letter-spacing:.02em;
   color:#e0e7d3;
-  font-weight:400;
   font-style:italic;
-  margin:0;
+  margin:14px 0 0;
+  letter-spacing:.02em;
   text-shadow:0 2px 9px rgba(0,0,0,.98),0 0 18px rgba(0,0,0,.85);
+}
+
+.flower-mark{
+  color:#D7C9A9;
+  font-size:.78em;
+  vertical-align:10%;
 }
 
 /* =========================================================
@@ -655,7 +665,7 @@ main{
   >
 
   <header class="head">
-    <h1>NUESTRAS ✉︎ CARTAS</h1>
+    <h1>NUESTRAS <span class="flower-mark">✉︎</span> CARTAS</h1>
 
     <p>
       Para esas palabras que son importantes, y queremos que el otro encuentre algún día.
