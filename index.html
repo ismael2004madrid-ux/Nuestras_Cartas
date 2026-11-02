@@ -47,7 +47,7 @@ body{
 .stars{
   position:fixed;
   inset:0;
-  z-index:0;
+  z-index:3;
   pointer-events:none;
   overflow:hidden;
   background:var(--paper);
@@ -163,7 +163,7 @@ body{
 .hero,
 main{
   position:relative;
-  z-index:2;
+  z-index:auto;
 }
 
 /* =========================================================
@@ -192,7 +192,7 @@ main{
 
   object-fit:cover;
   object-position:center center;
-  clip-path:inset(30% 0 0);
+  clip-path:inset(0 0 30%);
 
   z-index:0;
 }
@@ -210,7 +210,7 @@ main{
 
 .head{
   position:relative;
-  z-index:2;
+  z-index:4;
 
   width:min(760px,100%);
   padding:30px 22px 20px;
