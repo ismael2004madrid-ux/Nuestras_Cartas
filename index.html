@@ -41,119 +41,47 @@ body{
 }
 
 /* =========================================================
-   FONDO ESTRELLADO
+   LUCIÉRNAGAS BLANCAS
    ========================================================= */
 
-.stars{
+.fireflies{
   position:fixed;
   inset:0;
-  z-index:3;
-  pointer-events:none;
   overflow:hidden;
-  background:var(--paper);
+  pointer-events:none;
+  z-index:4;
 }
 
-.stars::before,
-.stars::after{
-  content:"";
+.firefly{
   position:absolute;
-  inset:0;
-  image-rendering:pixelated;
+  width:4px;
+  height:4px;
+  border-radius:50%;
+  background:#ffffff;
+  opacity:0;
+  box-shadow:0 0 6px 2px rgba(255,255,255,.65),0 0 16px 4px rgba(255,255,255,.3);
+  animation:firefly-drift 12s ease-in-out infinite;
 }
 
-/* Estrellas pequeñas */
+.firefly:nth-child(1){left:8%;top:22%;animation-delay:-2s;animation-duration:14s}
+.firefly:nth-child(2){left:19%;top:68%;animation-delay:-8s;animation-duration:17s}
+.firefly:nth-child(3){left:31%;top:38%;animation-delay:-5s;animation-duration:13s}
+.firefly:nth-child(4){left:43%;top:82%;animation-delay:-11s;animation-duration:16s}
+.firefly:nth-child(5){left:56%;top:19%;animation-delay:-7s;animation-duration:15s}
+.firefly:nth-child(6){left:67%;top:58%;animation-delay:-3s;animation-duration:18s}
+.firefly:nth-child(7){left:78%;top:32%;animation-delay:-10s;animation-duration:14s}
+.firefly:nth-child(8){left:91%;top:73%;animation-delay:-6s;animation-duration:16s}
+.firefly:nth-child(9){left:13%;top:89%;animation-delay:-12s;animation-duration:19s}
+.firefly:nth-child(10){left:84%;top:11%;animation-delay:-4s;animation-duration:15s}
+.firefly:nth-child(11){left:49%;top:48%;animation-delay:-9s;animation-duration:17s}
+.firefly:nth-child(12){left:73%;top:91%;animation-delay:-1s;animation-duration:13s}
 
-.stars::before{
-  width:2px;
-  height:2px;
-  background:#eef2ff;
-
-  box-shadow:
-    7vw 8vh #eef2ff,
-    15vw 18vh #eef2ff,
-    23vw 6vh #eef2ff,
-    31vw 25vh #eef2ff,
-    39vw 12vh #eef2ff,
-    48vw 7vh #eef2ff,
-    56vw 22vh #eef2ff,
-    65vw 11vh #eef2ff,
-    73vw 29vh #eef2ff,
-    82vw 7vh #eef2ff,
-    91vw 18vh #eef2ff,
-    96vw 34vh #eef2ff,
-
-    5vw 42vh #eef2ff,
-    14vw 55vh #eef2ff,
-    21vw 38vh #eef2ff,
-    29vw 62vh #eef2ff,
-    37vw 47vh #eef2ff,
-    46vw 56vh #eef2ff,
-    54vw 40vh #eef2ff,
-    63vw 67vh #eef2ff,
-    72vw 49vh #eef2ff,
-    81vw 59vh #eef2ff,
-    89vw 43vh #eef2ff,
-    97vw 72vh #eef2ff,
-
-    9vw 81vh #eef2ff,
-    18vw 92vh #eef2ff,
-    27vw 76vh #eef2ff,
-    36vw 88vh #eef2ff,
-    45vw 79vh #eef2ff,
-    57vw 94vh #eef2ff,
-    68vw 83vh #eef2ff,
-    78vw 91vh #eef2ff,
-    87vw 77vh #eef2ff,
-    95vw 89vh #eef2ff;
-
-  animation:twinkleSmall 4.8s steps(2,end) infinite;
-}
-
-/* Estrellas grandes */
-
-.stars::after{
-  width:3px;
-  height:3px;
-  background:#dce6ff;
-
-  box-shadow:
-    12vw 12vh #dce6ff,
-    27vw 17vh #dce6ff,
-    44vw 28vh #dce6ff,
-    61vw 15vh #dce6ff,
-    78vw 21vh #dce6ff,
-    93vw 9vh #dce6ff,
-
-    8vw 64vh #dce6ff,
-    25vw 52vh #dce6ff,
-    42vw 72vh #dce6ff,
-    59vw 48vh #dce6ff,
-    76vw 69vh #dce6ff,
-    92vw 57vh #dce6ff,
-
-    16vw 86vh #dce6ff,
-    33vw 96vh #dce6ff,
-    52vw 85vh #dce6ff,
-    71vw 95vh #dce6ff,
-    88vw 82vh #dce6ff;
-
-  animation:twinkleLarge 7s steps(3,end) infinite;
-}
-
-@keyframes twinkleSmall{
-  0%,100%{opacity:.18;}
-  20%{opacity:.8;}
-  42%{opacity:.25;}
-  67%{opacity:1;}
-  84%{opacity:.35;}
-}
-
-@keyframes twinkleLarge{
-  0%,100%{opacity:.7;}
-  18%{opacity:.15;}
-  38%{opacity:1;}
-  59%{opacity:.3;}
-  78%{opacity:.85;}
+@keyframes firefly-drift{
+  0%,100%{opacity:0;transform:translate3d(0,0,0) scale(.65)}
+  15%,35%{opacity:.8}
+  50%{opacity:.35;transform:translate3d(22px,-30px,0) scale(1)}
+  70%{opacity:.75;transform:translate3d(-12px,-48px,0) scale(.8)}
+  85%{opacity:0}
 }
 
 /* =========================================================
@@ -632,12 +560,7 @@ main{
    ========================================================= */
 
 @media(prefers-reduced-motion:reduce){
-
-  .stars::before,
-  .stars::after{
-    animation:none;
-  }
-
+  .firefly{display:none}
 }
 
 </style>
@@ -649,7 +572,7 @@ main{
      FONDO DINÁMICO
      ======================================================= -->
 
-<div class="stars" aria-hidden="true"></div>
+<div class="fireflies" aria-hidden="true"><span class="firefly"></span><span class="firefly"></span><span class="firefly"></span><span class="firefly"></span><span class="firefly"></span><span class="firefly"></span><span class="firefly"></span><span class="firefly"></span><span class="firefly"></span><span class="firefly"></span><span class="firefly"></span><span class="firefly"></span></div>
 
 <!-- =======================================================
      GIF SUPERIOR + CABECERA
