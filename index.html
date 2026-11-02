@@ -921,131 +921,129 @@ main{
 
   }
 
-  /* =======================================================
-     CREACIÓN DE TARJETAS
-     ======================================================= */
 
-  function makeCard(item){
+/* =======================================================
+   CREACIÓN DE TARJETAS
+   ======================================================= */
 
-    const card=document.createElement('details');
+function makeCard(item){
 
-    card.className='letter';
+  const card=document.createElement('details');
 
-    const summary=document.createElement('summary');
+  card.className='letter';
 
-    const top=document.createElement('div');
+  const summary=document.createElement('summary');
 
-    top.className='envtop';
+  const top=document.createElement('div');
 
-    let icon=document.createElement('span');
+  top.className='envtop';
 
-    const sealed=isCapsuleSealed(item);
+  let icon=document.createElement('span');
 
-    if(item.isCapsule){
+  const sealed=isCapsuleSealed(item);
 
-      const hourglass=document.createElementNS(
+  if(item.isCapsule){
+
+    const hourglass=document.createElementNS(
+      'http://www.w3.org/2000/svg',
+      'svg'
+    );
+
+    hourglass.setAttribute('viewBox','0 0 24 24');
+    hourglass.setAttribute('fill','none');
+    hourglass.setAttribute('stroke','currentColor');
+    hourglass.setAttribute('stroke-width','1.7');
+    hourglass.setAttribute('stroke-linecap','round');
+    hourglass.setAttribute('stroke-linejoin','round');
+    hourglass.setAttribute('class','envicon hourglass-icon');
+    hourglass.setAttribute('aria-label','Cápsula del tiempo');
+    hourglass.setAttribute('role','img');
+
+    const paths=[
+      'M5 22h14',
+      'M5 2h14',
+      'm17 22v-4.172a2 2 0 0 0-.586-1.414L12 12l-4.414 4.414A2 2 0 0 0 7 17.828V22',
+      'M7 2v4.172a2 2 0 0 0 .586 1.414L12 12l4.414-4.414A2 2 0 0 0 17 6.172V2'
+    ];
+
+    paths.forEach(d=>{
+      const path=document.createElementNS(
         'http://www.w3.org/2000/svg',
-        'svg'
+        'path'
       );
+      path.setAttribute('d',d);
+      hourglass.append(path);
+    });
 
-      hourglass.setAttribute('viewBox','0 0 24 24');
-      hourglass.setAttribute('fill','none');
-      hourglass.setAttribute('stroke','currentColor');
-      hourglass.setAttribute('stroke-width','1.7');
-      hourglass.setAttribute('stroke-linecap','round');
-      hourglass.setAttribute('stroke-linejoin','round');
-      hourglass.setAttribute('class','envicon hourglass-icon');
-      hourglass.setAttribute('aria-label','Cápsula del tiempo');
-      hourglass.setAttribute('role','img');
+    icon=hourglass;
 
-      const paths=[
-        'M5 22h14',
-        'M5 2h14',
-        'm17 22v-4.172a2 2 0 0 0-.586-1.414L12 12l-4.414 4.414A2 2 0 0 0 7 17.828V22',
-        'M7 2v4.172a2 2 0 0 0 .586 1.414L12 12l4.414-4.414A2 2 0 0 0 17 6.172V2'
-      ];
-    
-      paths.forEach(d=>{
-        const path=document.createElementNS(
-          'http://www.w3.org/2000/svg',
-          'path'
-            );
-        path.setAttribute('d',d);
-        hourglass.append(path);
-      });
-  
-      icon=hourglass;
+  }else{
 
-    }else{
-
-      icon.className='envicon';
-      icon.textContent='✉';
-      icon.setAttribute('aria-label','Carta');
-
-    }
-
-    const dt=document.createElement('span');
-
-    dt.className='date';
-    dt.textContent=formatDate(item.date);
-
-    top.append(icon,dt);
-
-    const subject=document.createElement('span');
-
-    subject.className='subject';
-    subject.textContent=item.title;
-
-    summary.append(
-      top,
-      subject
-    );
-
-    /* La firma solo se muestra cuando la cápsula está abierta */
-
-    if(!sealed){
-
-      const signaturePreview=document.createElement('span');
-
-      signaturePreview.className='signature-preview';
-      signaturePreview.textContent='— '+item.signature;
-
-      summary.append(signaturePreview);
-
-    }
-
-    const body=document.createElement('div');
-
-    if(sealed){
-
-      body.className='sealed-message';
-      body.textContent='La cápsula del tiempo está sellada ♡';
-
-    }else{
-
-      body.className='letterbody';
-
-      body.append(
-        document.createTextNode(item.message)
-      );
-
-      const sign=document.createElement('div');
-
-      sign.className='sign';
-      sign.textContent='— '+item.signature;
-
-      body.append(sign);
-
-    }
-
-    card.append(
-      summary,
-      body
-    );
-
-    return card;
+    icon.className='envicon';
+    icon.textContent='✉';
+    icon.setAttribute('aria-label','Carta');
 
   }
+
+  const dt=document.createElement('span');
+
+  dt.className='date';
+  dt.textContent=formatDate(item.date);
+
+  top.append(icon,dt);
+
+  const subject=document.createElement('span');
+
+  subject.className='subject';
+  subject.textContent=item.title;
+
+  summary.append(
+    top,
+    subject
+  );
+
+  /* La firma aparece siempre en la vista previa */
+
+  const signaturePreview=document.createElement('span');
+
+  signaturePreview.className='signature-preview';
+  signaturePreview.textContent='— '+item.signature;
+
+  summary.append(signaturePreview);
+
+  const body=document.createElement('div');
+
+  if(sealed){
+
+    body.className='sealed-message';
+    body.textContent='La cápsula del tiempo está sellada ♡';
+
+  }else{
+
+    body.className='letterbody';
+
+    body.append(
+      document.createTextNode(item.message)
+    );
+
+    const sign=document.createElement('div');
+
+    sign.className='sign';
+    sign.textContent='— '+item.signature;
+
+    body.append(sign);
+
+  }
+
+  card.append(
+    summary,
+    body
+  );
+
+  return card;
+
+}
+
 
   /* =======================================================
      MOSTRAR CARTAS Y CÁPSULAS
