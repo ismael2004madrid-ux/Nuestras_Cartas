@@ -57,9 +57,9 @@ body{
   width:4px;
   height:4px;
   border-radius:50%;
-  background:#b9dcff;
+  background:#8fbce8;
   opacity:0;
-  box-shadow:0 0 6px 2px rgba(185,220,255,.65),0 0 16px 4px rgba(185,220,255,.3);
+  box-shadow:0 0 6px 2px rgba(143,188,232,.5),0 0 16px 4px rgba(143,188,232,.22);
   animation:firefly-drift 12s ease-in-out infinite;
 }
 
@@ -100,17 +100,17 @@ main{
 
 .hero{
   position:relative;
+  isolation:isolate;
   width:100%;
-  height:330px;
+  min-height:430px;
+  padding:76px 20px 0;
   overflow:hidden;
-
   display:flex;
+  flex-direction:column;
   align-items:center;
-  justify-content:center;
-
+  justify-content:flex-start;
   text-align:center;
 }
-
 .hero-gif{
   position:absolute;
   inset:0;
@@ -139,14 +139,11 @@ main{
 .head{
   position:relative;
   z-index:4;
-
-  width:min(760px,100%);
-  padding:30px 22px 20px;
-
+  width:auto;
+  padding:0;
   text-align:center;
   margin:0 auto;
 }
-
 .head h1{
   position:relative;
   z-index:3;
@@ -486,28 +483,26 @@ main{
    MÓVIL
    ========================================================= */
 
+@media(max-width:760px){
+  .hero{
+    min-height:390px;
+    padding:65px 12px 43px;
+  }
+}
+
 @media(max-width:520px){
 
   .hero{
-    height:285px;
+    min-height:330px;
+    padding:58px 5px 38px;
   }
 
   .hero-gif{
-    object-position:center center;
-  }
-
-  .head{
-    padding:24px 18px 18px;
-  }
-
-  .head h1{
-    font-size:21px;
-    margin-bottom:9px;
+    object-position:center bottom;
   }
 
   .head p{
     font-size:12px;
-    line-height:1.6;
   }
 
   main{
