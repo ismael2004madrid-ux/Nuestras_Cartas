@@ -114,14 +114,11 @@ main{
 .hero-gif{
   position:absolute;
   inset:0;
-
   width:100%;
   height:100%;
-
-  object-fit:cover;
+  object-fit:contain;
   object-position:center bottom;
-  clip-path:none;
-
+  clip-path:inset(18% 0 0);
   z-index:0;
 }
 
@@ -340,33 +337,6 @@ main{
 }
 
 /* =========================================================
-   ESCENA INFERIOR
-   ========================================================= */
-
-.bottom-scene{
-  position:relative;
-  width:100%;
-  height:220px;
-  margin-top:-150px;
-  overflow:hidden;
-  z-index:1;
-  pointer-events:none;
-  background:var(--paper);
-}
-
-.bottom-gif{
-  position:absolute;
-  left:50%;
-  bottom:0;
-  transform:translateX(-50%);
-  width:100%;
-  height:auto;
-  max-width:none;
-  display:block;
-  image-rendering:pixelated;
-}
-
-/* =========================================================
    FORMULARIO
    ========================================================= */
 
@@ -527,16 +497,6 @@ main{
     min-height:110px;
   }
 
-  .bottom-scene{
-    height:220px;
-    margin-top:-130px;
-  }
-
-  .bottom-gif{
-    width:100%;
-    height:auto;
-  }
-
   .back{
     margin-top:48px;
   }
@@ -644,21 +604,6 @@ main{
   </div>
 
 </main>
-
-<!-- =======================================================
-     GIF INFERIOR
-     ======================================================= -->
-
-<section class="bottom-scene">
-
-  <img
-    class="bottom-gif"
-    src="kirby_stars_transparent.gif"
-    alt=""
-    aria-hidden="true"
-  >
-
-</section>
 
 <!-- =======================================================
      FORMULARIO
