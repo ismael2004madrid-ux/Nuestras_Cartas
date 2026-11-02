@@ -57,9 +57,9 @@ body{
   width:4px;
   height:4px;
   border-radius:50%;
-  background:#ffffff;
+  background:#b9dcff;
   opacity:0;
-  box-shadow:0 0 6px 2px rgba(255,255,255,.65),0 0 16px 4px rgba(255,255,255,.3);
+  box-shadow:0 0 6px 2px rgba(185,220,255,.65),0 0 16px 4px rgba(185,220,255,.3);
   animation:firefly-drift 12s ease-in-out infinite;
 }
 
@@ -119,8 +119,8 @@ main{
   height:100%;
 
   object-fit:cover;
-  object-position:center center;
-  clip-path:inset(0 0 30%);
+  object-position:center bottom;
+  clip-path:none;
 
   z-index:0;
 }
@@ -172,7 +172,7 @@ main{
 }
 
 .flower-mark{
-  color:#D7C9A9;
+  color:var(--gold);
   font-size:.78em;
   vertical-align:10%;
 }
@@ -588,10 +588,10 @@ main{
   >
 
   <header class="head">
-    <h1>NUESTRAS <span class="flower-mark">✉︎</span> CARTAS</h1>
+    <h1>NUESTRO <span class="flower-mark">✿</span> JARDÍN</h1>
 
-    <p>
-      Para esas palabras que son importantes, y queremos que el otro encuentre algún día.
+    <p class="subtitle">
+      Una colección de las flores que hemos conseguido reunir
     </p>
   </header>
 
