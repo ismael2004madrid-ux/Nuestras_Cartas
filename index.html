@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="es">
 <head>
@@ -39,7 +40,6 @@ body{
   overflow-x:hidden;
 }
 
-
 /* =========================================================
    FONDO ESTRELLADO
    ========================================================= */
@@ -60,7 +60,6 @@ body{
   inset:0;
   image-rendering:pixelated;
 }
-
 
 /* Estrellas pequeñas */
 
@@ -110,7 +109,6 @@ body{
   animation:twinkleSmall 4.8s steps(2,end) infinite;
 }
 
-
 /* Estrellas grandes */
 
 .stars::after{
@@ -142,54 +140,21 @@ body{
   animation:twinkleLarge 7s steps(3,end) infinite;
 }
 
-
 @keyframes twinkleSmall{
-
-  0%,100%{
-    opacity:.18;
-  }
-
-  20%{
-    opacity:.8;
-  }
-
-  42%{
-    opacity:.25;
-  }
-
-  67%{
-    opacity:1;
-  }
-
-  84%{
-    opacity:.35;
-  }
+  0%,100%{opacity:.18;}
+  20%{opacity:.8;}
+  42%{opacity:.25;}
+  67%{opacity:1;}
+  84%{opacity:.35;}
 }
-
 
 @keyframes twinkleLarge{
-
-  0%,100%{
-    opacity:.7;
-  }
-
-  18%{
-    opacity:.15;
-  }
-
-  38%{
-    opacity:1;
-  }
-
-  59%{
-    opacity:.3;
-  }
-
-  78%{
-    opacity:.85;
-  }
+  0%,100%{opacity:.7;}
+  18%{opacity:.15;}
+  38%{opacity:1;}
+  59%{opacity:.3;}
+  78%{opacity:.85;}
 }
-
 
 /* =========================================================
    CAPAS PRINCIPALES
@@ -200,7 +165,6 @@ main{
   position:relative;
   z-index:2;
 }
-
 
 /* =========================================================
    CABECERA + GIF SUPERIOR
@@ -219,7 +183,6 @@ main{
   text-align:center;
 }
 
-
 .hero-gif{
   position:absolute;
   inset:0;
@@ -233,10 +196,8 @@ main{
   z-index:0;
 }
 
-
 .hero::after{
   content:"";
-
   position:absolute;
   inset:0;
 
@@ -246,47 +207,34 @@ main{
   pointer-events:none;
 }
 
-
 .head{
   position:relative;
   z-index:2;
 
   width:min(760px,100%);
-
   padding:30px 22px 20px;
 
   text-align:center;
-
   margin:0 auto;
 }
-
 
 .head h1{
   font-size:clamp(21px,3.8vw,28px);
   font-weight:700;
-
   color:#f3f2e9;
-
   margin:0 0 10px;
-
   text-shadow:0 2px 5px rgba(0,0,0,.55);
 }
-
 
 .head p{
   font-size:13px;
   letter-spacing:0;
-
   color:#f3f2e9;
-
   font-weight:400;
   font-style:italic;
-
   margin:0;
-
   text-shadow:0 2px 5px rgba(0,0,0,.65);
 }
-
 
 /* =========================================================
    CONTENIDO
@@ -294,181 +242,165 @@ main{
 
 main{
   max-width:760px;
-
   margin:auto;
-
   padding:0 22px 20px;
 }
-
 
 .actions{
   display:flex;
   justify-content:center;
-
+  align-items:center;
+  flex-wrap:wrap;
+  gap:12px;
   margin:34px 0 32px;
 }
-
 
 .btn{
   font:inherit;
   font-size:14px;
-
   color:var(--ink);
-
   background:transparent;
-
   border:1px solid var(--sage);
   border-radius:999px;
-
   padding:11px 22px;
-
   cursor:pointer;
-
   transition:.2s;
-
   text-decoration:none;
-
   display:inline-block;
 }
-
 
 .btn:hover{
   background:#101e4d;
 }
 
+.btn:disabled{
+  opacity:.55;
+  cursor:wait;
+}
 
 /* =========================================================
-   CARTAS
+   CARTAS Y CÁPSULAS
    ========================================================= */
 
 .letters{
   display:grid;
-
   grid-template-columns:1fr;
-
   gap:14px;
 }
 
-
 .letter{
   border:1px solid var(--line);
-
   background:var(--card);
-
   border-radius:8px;
-
   overflow:hidden;
 }
 
-
 .letter summary{
   list-style:none;
-
   cursor:pointer;
-
   padding:20px;
-
   min-height:130px;
 
   display:flex;
-
   flex-direction:column;
-
   justify-content:space-between;
-
   gap:12px;
 }
-
 
 .letter summary::-webkit-details-marker{
   display:none;
 }
 
-
 .envtop{
   display:flex;
-
   justify-content:space-between;
   align-items:center;
 }
 
-
 .envicon{
   color:var(--green);
-
   font-size:28px;
 }
 
+/* Icono propio de las cápsulas */
+
+.capsule-icon{
+  display:inline-block;
+  position:relative;
+  width:17px;
+  height:29px;
+  border:2px solid var(--green);
+  border-radius:999px;
+  flex-shrink:0;
+}
+
+.capsule-icon::after{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  top:50%;
+  border-top:2px solid var(--green);
+  transform:translateY(-50%);
+}
 
 .date{
   font-size:12px;
-
   color:var(--muted);
 }
-
 
 .subject{
   font-size:15px;
-
   color:var(--ink);
 }
 
-
 .signature-preview{
   font-size:12px;
-
   color:var(--muted);
-
   font-weight:400;
   font-style:italic;
-
   margin-top:2px;
 }
-
 
 .letter[open] summary{
   border-bottom:1px solid var(--line);
 }
 
-
 .letterbody{
   padding:22px;
-
   background:#050f38;
-
   color:#e7ebfa;
-
   font-weight:400;
   font-style:normal;
-
   white-space:pre-wrap;
 }
 
-
 .sign{
   margin-top:18px;
-
   text-align:right;
-
   color:var(--green);
-
   font-weight:700;
   font-style:italic;
 }
 
+/* Mensaje de cápsula sellada */
+
+.sealed-message{
+  padding:25px 22px;
+  text-align:center;
+  color:var(--green);
+  font-size:14px;
+  font-style:italic;
+  background:#050f38;
+}
 
 .empty{
   text-align:center;
-
   color:var(--muted);
-
   padding:36px 10px;
-
   grid-column:1/-1;
-
   font-size:14px;
 }
-
 
 /* =========================================================
    BOTÓN VOLVER
@@ -476,64 +408,38 @@ main{
 
 .back{
   display:flex;
-
   justify-content:center;
-
   margin:52px 0 10px;
-
   position:relative;
-
   z-index:3;
 }
-
 
 /* =========================================================
    ESCENA INFERIOR
    ========================================================= */
 
-/*
-   El GIF empieza antes del final del contenido.
-   El margen negativo hace que suba y se monte
-   visualmente detrás de la zona del botón.
-*/
-
 .bottom-scene{
   position:relative;
-
   width:100%;
-
   height:220px;
-
   margin-top:-150px;
-
   overflow:hidden;
-
   z-index:1;
-
   pointer-events:none;
-
   background:var(--paper);
 }
 
-
 .bottom-gif{
   position:absolute;
-
   left:50%;
   bottom:0;
-
   transform:translateX(-50%);
-
   width:100%;
   height:auto;
-
   max-width:none;
-
   display:block;
-
   image-rendering:pixelated;
 }
-
 
 /* =========================================================
    FORMULARIO
@@ -541,167 +447,112 @@ main{
 
 .overlay{
   display:none;
-
   position:fixed;
   inset:0;
-
   background:rgba(0,4,22,.78);
-
   padding:20px;
-
   align-items:center;
   justify-content:center;
-
   z-index:5;
 }
-
 
 .overlay.show{
   display:flex;
 }
 
-
 .formcard{
   width:min(100%,540px);
-
   max-height:90vh;
-
   overflow:auto;
-
   background:#07123d;
-
   border:1px solid var(--line);
-
   border-radius:12px;
-
   padding:28px;
-
   box-shadow:0 18px 60px rgba(0,0,0,.45);
 }
 
-
 .formhead{
   display:flex;
-
   justify-content:space-between;
   align-items:center;
-
   margin-bottom:20px;
 }
 
-
 .formhead h2{
   font-size:22px;
-
   margin:0;
-
   color:var(--ink);
 }
-
 
 .close{
   border:0;
-
   background:none;
-
   color:var(--green);
-
   font:inherit;
-
   font-size:24px;
-
   cursor:pointer;
 }
 
-
 .field{
   display:block;
-
   margin:17px 0 7px;
-
   color:var(--ink);
 }
-
 
 .formcard input,
 .formcard textarea{
   width:100%;
-
   border:1px solid var(--line);
-
   border-radius:6px;
-
   background:#020c32;
-
   padding:12px;
-
   color:var(--ink);
-
   font:400 15px/1.6 'Domine',Georgia,serif;
 }
-
 
 .formcard input::placeholder,
 .formcard textarea::placeholder{
   color:#7785ad;
 }
 
-
 .formcard textarea{
   min-height:170px;
-
   resize:vertical;
 }
 
-
 .formbuttons{
   display:flex;
-
   gap:10px;
-
   justify-content:flex-end;
-
   margin-top:20px;
 }
 
-
 .hint{
   font:400 12px/1.5 'Domine',Georgia,serif;
-
   color:var(--muted);
-
   margin-top:12px;
 }
 
-
 .toast{
   position:fixed;
-
   bottom:18px;
   left:50%;
-
   transform:translateX(-50%);
-
   background:#172b68;
-
   color:#f1f3ff;
-
   padding:10px 16px;
-
   border:1px solid #354b83;
-
   border-radius:99px;
-
   font:400 13px 'Domine',Georgia,serif;
-
   display:none;
+  z-index:10;
+  max-width:calc(100% - 30px);
+  text-align:center;
 }
-
 
 .toast.show{
   display:block;
 }
-
 
 /* =========================================================
    MÓVIL
@@ -713,76 +564,68 @@ main{
     height:285px;
   }
 
-
   .hero-gif{
     object-position:center center;
   }
-
 
   .head{
     padding:24px 18px 18px;
   }
 
-
   .head h1{
     font-size:21px;
-
     margin-bottom:9px;
   }
 
-
   .head p{
     font-size:12px;
-
     line-height:1.6;
   }
-
 
   main{
     padding:0 22px 20px;
   }
 
-
   .actions{
-    margin:30px 0 30px;
+    margin:30px 0;
+    gap:9px;
   }
 
+  .actions .btn{
+    font-size:12px;
+    padding:10px 14px;
+  }
 
   .letters{
     grid-template-columns:1fr;
   }
 
-
   .letter summary{
     min-height:110px;
   }
 
-
-  /*
-     En móvil subimos todavía un poco el GIF
-     para que quede integrado con el botón.
-  */
-
   .bottom-scene{
     height:220px;
-
     margin-top:-130px;
   }
 
-
   .bottom-gif{
     width:100%;
-
     height:auto;
   }
-
 
   .back{
     margin-top:48px;
   }
 
-}
+  .formcard{
+    padding:22px;
+  }
 
+  .formhead h2{
+    font-size:19px;
+  }
+}
 
 /* =========================================================
    RESPETO A REDUCCIÓN DE MOVIMIENTO
@@ -800,16 +643,13 @@ main{
 </style>
 </head>
 
-
 <body>
-
 
 <!-- =======================================================
      FONDO DINÁMICO
      ======================================================= -->
 
 <div class="stars" aria-hidden="true"></div>
-
 
 <!-- =======================================================
      GIF SUPERIOR + CABECERA
@@ -825,17 +665,14 @@ main{
   >
 
   <header class="head">
-
     <h1>NUESTRAS ✉︎ CARTAS</h1>
 
     <p>
       Para esas palabras que son importantes, y queremos que el otro encuentre algún día.
     </p>
-
   </header>
 
 </section>
-
 
 <!-- =======================================================
      CONTENIDO
@@ -843,18 +680,25 @@ main{
 
 <main>
 
-
   <div class="actions">
 
     <button
       class="btn"
       id="openForm"
+      type="button"
     >
       ＋ Escribir una carta
     </button>
 
-  </div>
+    <button
+      class="btn"
+      id="openCapsule"
+      type="button"
+    >
+      ＋ Cápsula del tiempo
+    </button>
 
+  </div>
 
   <section
     class="letters"
@@ -867,7 +711,6 @@ main{
     </p>
 
   </section>
-
 
   <!-- BOTÓN VOLVER -->
 
@@ -882,9 +725,7 @@ main{
 
   </div>
 
-
 </main>
-
 
 <!-- =======================================================
      GIF INFERIOR
@@ -900,7 +741,6 @@ main{
   >
 
 </section>
-
 
 <!-- =======================================================
      FORMULARIO
@@ -918,7 +758,7 @@ main{
 
     <div class="formhead">
 
-      <h2>
+      <h2 id="formTitle">
         Escribir una carta
       </h2>
 
@@ -933,10 +773,10 @@ main{
 
     </div>
 
-
     <label
       class="field"
       for="title"
+      id="titleLabel"
     >
       Título de la carta
     </label>
@@ -950,10 +790,10 @@ main{
       required
     >
 
-
     <label
       class="field"
       for="date"
+      id="dateLabel"
     >
       ¿Qué día escribes esto?
     </label>
@@ -965,10 +805,10 @@ main{
       required
     >
 
-
     <label
       class="field"
       for="message"
+      id="messageLabel"
     >
       Escribe tu carta
     </label>
@@ -979,7 +819,6 @@ main{
       placeholder="Escribe aquí todo lo que quieras contar…"
       required
     ></textarea>
-
 
     <label
       class="field"
@@ -996,11 +835,9 @@ main{
       required
     >
 
-
-    <p class="hint">
+    <p class="hint" id="formHint">
       Al guardar, la carta aparecerá la primera en el buzón.
     </p>
-
 
     <div class="formbuttons">
 
@@ -1015,6 +852,7 @@ main{
       <button
         class="btn"
         type="submit"
+        id="submitButton"
       >
         Guardar carta ♡
       </button>
@@ -1025,14 +863,12 @@ main{
 
 </div>
 
-
 <div
   class="toast"
   id="toast"
 >
-  Carta añadida a esta vista de prueba
+  Carta guardada en vuestro buzón ♡
 </div>
-
 
 <script>
 
@@ -1049,16 +885,38 @@ main{
     Authorization:`Bearer ${SUPABASE_ANON_KEY}`
   };
 
-
   const overlay=document.getElementById('overlay');
-
   const form=document.getElementById('letterForm');
-
   const letters=document.getElementById('letters');
 
+  const formTitle=document.getElementById('formTitle');
+  const titleLabel=document.getElementById('titleLabel');
+  const titleInput=document.getElementById('title');
+  const dateLabel=document.getElementById('dateLabel');
+  const dateInput=document.getElementById('date');
+  const messageLabel=document.getElementById('messageLabel');
+  const messageInput=document.getElementById('message');
+  const formHint=document.getElementById('formHint');
+  const submitButton=document.getElementById('submitButton');
 
   let savedLetters=[];
+  let currentEntryType='letter';
 
+  /* =======================================================
+     FECHAS
+     ======================================================= */
+
+  function getLocalDateISO(){
+
+    const now=new Date();
+
+    const year=now.getFullYear();
+    const month=String(now.getMonth()+1).padStart(2,'0');
+    const day=String(now.getDate()).padStart(2,'0');
+
+    return `${year}-${month}-${day}`;
+
+  }
 
   function formatDate(value){
 
@@ -1070,6 +928,15 @@ main{
 
   }
 
+  function isCapsuleSealed(item){
+
+    return item.isCapsule && item.date>getLocalDateISO();
+
+  }
+
+  /* =======================================================
+     CREACIÓN DE TARJETAS
+     ======================================================= */
 
   function makeCard(item){
 
@@ -1077,86 +944,99 @@ main{
 
     card.className='letter';
 
-
     const summary=document.createElement('summary');
-
 
     const top=document.createElement('div');
 
     top.className='envtop';
 
-
     const icon=document.createElement('span');
 
-    icon.className='envicon';
+    const sealed=isCapsuleSealed(item);
 
-    icon.textContent='✉';
+    if(item.isCapsule){
 
+      icon.className='envicon capsule-icon';
+      icon.setAttribute('aria-label','Cápsula del tiempo');
+
+    }else{
+
+      icon.className='envicon';
+      icon.textContent='✉';
+      icon.setAttribute('aria-label','Carta');
+
+    }
 
     const dt=document.createElement('span');
 
     dt.className='date';
-
     dt.textContent=formatDate(item.date);
 
-
     top.append(icon,dt);
-
 
     const subject=document.createElement('span');
 
     subject.className='subject';
-
     subject.textContent=item.title;
-
-
-    const signaturePreview=document.createElement('span');
-
-    signaturePreview.className='signature-preview';
-
-    signaturePreview.textContent='— '+item.signature;
-
 
     summary.append(
       top,
-      subject,
-      signaturePreview
+      subject
     );
 
+    /* La firma solo se muestra cuando la cápsula está abierta */
+
+    if(!sealed){
+
+      const signaturePreview=document.createElement('span');
+
+      signaturePreview.className='signature-preview';
+      signaturePreview.textContent='— '+item.signature;
+
+      summary.append(signaturePreview);
+
+    }
 
     const body=document.createElement('div');
 
-    body.className='letterbody';
+    if(sealed){
 
-    body.append(
-      document.createTextNode(item.message)
-    );
+      body.className='sealed-message';
+      body.textContent='La cápsula del tiempo está sellada 💚';
 
+    }else{
 
-    const sign=document.createElement('div');
+      body.className='letterbody';
 
-    sign.className='sign';
+      body.append(
+        document.createTextNode(item.message)
+      );
 
-    sign.textContent='— '+item.signature;
+      const sign=document.createElement('div');
 
+      sign.className='sign';
+      sign.textContent='— '+item.signature;
 
-    body.append(sign);
+      body.append(sign);
+
+    }
 
     card.append(
       summary,
       body
     );
 
-
     return card;
 
   }
 
+  /* =======================================================
+     MOSTRAR CARTAS Y CÁPSULAS
+     ======================================================= */
 
   function renderLetters(){
 
     letters.replaceChildren();
-
 
     if(!savedLetters.length){
 
@@ -1172,7 +1052,6 @@ main{
 
     }
 
-
     savedLetters.forEach(
       item=>letters.append(
         makeCard(item)
@@ -1181,18 +1060,20 @@ main{
 
   }
 
+  /* =======================================================
+     CARGAR DATOS DE SUPABASE
+     ======================================================= */
 
   async function fetchLetters(){
 
     letters.innerHTML=
       '<p class="empty">Cargando vuestras cartas…</p>';
 
-
     try{
 
       const response=await fetch(
 
-        `${API_URL}?select=id,title,letter_date,message,signature,created_at&order=created_at.desc`,
+        `${API_URL}?select=id,title,letter_date,message,signature,is_capsule,created_at&order=created_at.desc`,
 
         {
           headers:{
@@ -1202,7 +1083,6 @@ main{
         }
 
       );
-
 
       if(!response.ok){
 
@@ -1214,9 +1094,7 @@ main{
 
       }
 
-
       const data=await response.json();
-
 
       savedLetters=data.map(row=>({
 
@@ -1230,15 +1108,15 @@ main{
 
         signature:row.signature,
 
+        isCapsule:row.is_capsule===true,
+
         createdAt:new Date(
           row.created_at
         ).getTime()
 
       }));
 
-
       renderLetters();
-
 
     }catch(error){
 
@@ -1254,6 +1132,9 @@ main{
 
   }
 
+  /* =======================================================
+     ABRIR Y CERRAR FORMULARIO
+     ======================================================= */
 
   function show(){
 
@@ -1261,21 +1142,81 @@ main{
 
   }
 
-
   function hide(){
 
     overlay.classList.remove('show');
 
   }
 
+  function openEntryForm(type){
+
+    currentEntryType=type;
+
+    form.reset();
+
+    if(type==='capsule'){
+
+      formTitle.textContent='Crear una cápsula del tiempo';
+
+      titleLabel.textContent='Título de la cápsula';
+
+      titleInput.placeholder='Ponle un título a tu cápsula';
+
+      dateLabel.textContent='¿Cuándo quieres que se abra?';
+
+      dateInput.min=getLocalDateISO();
+
+      messageLabel.textContent='Escribe el mensaje que quieres guardar';
+
+      messageInput.placeholder='Este mensaje permanecerá oculto hasta la fecha elegida…';
+
+      formHint.textContent='La cápsula permanecerá sellada hasta el día que hayas elegido.';
+
+      submitButton.textContent='Guardar cápsula 💚';
+
+    }else{
+
+      formTitle.textContent='Escribir una carta';
+
+      titleLabel.textContent='Título de la carta';
+
+      titleInput.placeholder='Ponle un título a tu carta';
+
+      dateLabel.textContent='¿Qué día escribes esto?';
+
+      dateInput.removeAttribute('min');
+
+      messageLabel.textContent='Escribe tu carta';
+
+      messageInput.placeholder='Escribe aquí todo lo que quieras contar…';
+
+      formHint.textContent='Al guardar, la carta aparecerá la primera en el buzón.';
+
+      submitButton.textContent='Guardar carta ♡';
+
+    }
+
+    show();
+
+  }
+
+  /* =======================================================
+     BOTONES DE APERTURA
+     ======================================================= */
 
   document
     .getElementById('openForm')
     .addEventListener(
       'click',
-      show
+      ()=>openEntryForm('letter')
     );
 
+  document
+    .getElementById('openCapsule')
+    .addEventListener(
+      'click',
+      ()=>openEntryForm('capsule')
+    );
 
   document
     .getElementById('closeForm')
@@ -1284,14 +1225,12 @@ main{
       hide
     );
 
-
   document
     .getElementById('cancel')
     .addEventListener(
       'click',
       hide
     );
-
 
   overlay.addEventListener(
     'click',
@@ -1302,6 +1241,9 @@ main{
     }
   );
 
+  /* =======================================================
+     GUARDAR CARTAS Y CÁPSULAS
+     ======================================================= */
 
   form.addEventListener(
     'submit',
@@ -1309,48 +1251,44 @@ main{
 
       e.preventDefault();
 
-
       if(!form.reportValidity())return;
 
+      if(
+        currentEntryType==='capsule' &&
+        dateInput.value<getLocalDateISO()
+      ){
 
-      const submitButton=
-        form.querySelector(
-          'button[type="submit"]'
-        );
+        alert('Elige una fecha de hoy o posterior para abrir la cápsula.');
 
+        return;
+
+      }
 
       submitButton.disabled=true;
 
       submitButton.textContent='Guardando…';
 
-
       const item={
 
         title:
-          document
-            .getElementById('title')
-            .value
-            .trim(),
+          titleInput.value.trim(),
 
         letter_date:
-          document
-            .getElementById('date')
-            .value,
+          dateInput.value,
 
         message:
-          document
-            .getElementById('message')
-            .value
-            .trim(),
+          messageInput.value.trim(),
 
         signature:
           document
             .getElementById('signature')
             .value
-            .trim()
+            .trim(),
+
+        is_capsule:
+          currentEntryType==='capsule'
 
       };
-
 
       try{
 
@@ -1374,7 +1312,6 @@ main{
 
         );
 
-
         if(!response.ok){
 
           const detail=await response.text();
@@ -1385,25 +1322,20 @@ main{
 
         }
 
-
         form.reset();
 
         hide();
 
-
         await fetchLetters();
 
-
-        const toast=
-          document.getElementById('toast');
-
+        const toast=document.getElementById('toast');
 
         toast.textContent=
-          'Carta guardada en vuestro buzón ♡';
-
+          item.is_capsule
+            ? 'Cápsula guardada y sellada 💚'
+            : 'Carta guardada en vuestro buzón ♡';
 
         toast.classList.add('show');
-
 
         setTimeout(
           ()=>{
@@ -1412,32 +1344,34 @@ main{
           2400
         );
 
-
       }catch(error){
 
         console.error(
-          'Error al guardar la carta:',
+          'Error al guardar:',
           error
         );
 
-
         alert(
-          'No se ha podido guardar la carta. Comprueba la conexión e inténtalo de nuevo.'
+          'No se ha podido guardar. Comprueba la conexión e inténtalo de nuevo.'
         );
-
 
       }finally{
 
         submitButton.disabled=false;
 
         submitButton.textContent=
-          'Guardar carta ♡';
+          currentEntryType==='capsule'
+            ? 'Guardar cápsula 💚'
+            : 'Guardar carta ♡';
 
       }
 
     }
   );
 
+  /* =======================================================
+     ACTUALIZAR ESTADO DE CÁPSULAS
+     ======================================================= */
 
   fetchLetters();
 
