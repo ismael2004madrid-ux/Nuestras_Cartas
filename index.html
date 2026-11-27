@@ -757,8 +757,8 @@ main{
       required
     >
 
-    <label class="field" for="stampImage">Sello de la carta (opcional)</label>
-    <input id="stampImage" name="stampImage" type="file" accept="image/jpeg,image/png,image/webp,image/gif" aria-label="Subir imagen para el sello">
+    <label class="field" id="stampLabel" for="stampImage">Sello de la carta (opcional)</label>
+    <input id="stampImage" name="stampImage" type="file" accept="image/*" aria-label="Subir imagen para el sello">
     <div class="stamp-preview" id="stampPreview" hidden>
       <img id="stampPreviewImage" alt="Vista previa del sello">
       <span>Así aparecerá el sello en el sobre.</span>
@@ -819,6 +819,7 @@ main{
   const formHint=document.getElementById('formHint');
   const submitButton=document.getElementById('submitButton');
   const stampInput=document.getElementById('stampImage');
+  const stampLabel=document.getElementById('stampLabel');
   const stampPreview=document.getElementById('stampPreview');
   const stampPreviewImage=document.getElementById('stampPreviewImage');
   let stampPreviewUrl=null;
@@ -1139,6 +1140,7 @@ function makeCard(item){
 
     if(type==='capsule'){
 
+      stampLabel.textContent='Sello de la cápsula (opcional)';
       formTitle.textContent='Crea una cápsula del tiempo';
 
       titleLabel.textContent='Título de la cápsula';
@@ -1160,6 +1162,7 @@ function makeCard(item){
 
     }else{
 
+      stampLabel.textContent='Sello de la carta (opcional)';
       formTitle.textContent='Escribe una carta';
 
       titleLabel.textContent='Título de la carta';
@@ -1243,9 +1246,9 @@ function makeCard(item){
       }
 
       const stampFile=stampInput.files&&stampInput.files[0];
-      const allowedStampTypes=['image/jpeg','image/png','image/webp','image/gif'];
+      const allowedStampTypes=['image/jpeg','image/png','image/webp','image/gif','image/heic','image/heif','image/avif'];
       if(stampFile&&(!allowedStampTypes.includes(stampFile.type)||stampFile.size>5*1024*1024)){
-        alert('El sello debe ser JPG, PNG, WEBP o GIF y no superar los 5 MB.');
+        alert('El sello debe ser una imagen compatible y no superar los 5 MB.');
         return;
       }
 
@@ -1279,7 +1282,7 @@ function makeCard(item){
       try{
 
         if(stampFile){
-          const extension=({ 'image/jpeg':'jpg','image/png':'png','image/webp':'webp','image/gif':'gif' })[stampFile.type];
+          const extension=({ 'image/jpeg':'jpg','image/png':'png','image/webp':'webp','image/gif':'gif','image/heic':'heic','image/heif':'heif','image/avif':'avif' })[stampFile.type];
           const unique=Date.now()+'-'+Math.random().toString(36).slice(2,10);
           const path='stamps/'+unique+'.'+extension;
           const {data:uploadedStamp,error:stampError}=await storageClient.storage.from(STAMP_BUCKET).upload(path,stampFile,{cacheControl:'3600',contentType:stampFile.type,upsert:false});
