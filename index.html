@@ -277,8 +277,8 @@ main{
   z-index:3;
 }
 .envsymbols{display:flex;align-items:center;gap:9px;min-width:0}
-.stamp-frame{width:44px;height:44px;padding:5px;flex:none;display:grid;place-items:center;background:radial-gradient(circle at 4px 4px,transparent 2px,rgba(126,230,140,.95) 2.5px) 0 0/8px 8px;filter:drop-shadow(0 2px 4px rgba(0,0,0,.28))}
-.stamp-frame img{display:block;width:34px;height:34px;object-fit:cover;border:1px solid rgba(126,230,140,.55);background:#0a1540}
+.stamp-frame{width:32px;height:32px;padding:3px;flex:none;display:grid;place-items:center;border:1px dashed rgba(126,230,140,.32);border-radius:2px;background:rgba(126,230,140,.07);opacity:.78}
+.stamp-frame img{display:block;width:24px;height:24px;object-fit:cover;border:0;border-radius:1px;background:rgba(10,21,64,.28)}
 
 .envicon{
   color:var(--green);
@@ -940,6 +940,7 @@ function makeCard(item){
 
   const symbols=document.createElement('div');
   symbols.className='envsymbols';
+  symbols.append(icon);
   if(item.stampPath){
     const stampFrame=document.createElement('span');
     stampFrame.className='stamp-frame';
@@ -950,7 +951,6 @@ function makeCard(item){
     stampFrame.append(stamp);
     symbols.append(stampFrame);
   }
-  symbols.append(icon);
 
   const dt=document.createElement('span');
   dt.className='date';
