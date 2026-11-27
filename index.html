@@ -224,23 +224,54 @@ main{
 }
 
 .letter{
-  border:1px solid var(--line);
-  background:linear-gradient(145deg,rgba(17,34,83,.94),rgba(7,20,60,.88));
-  border-radius:3px;
+  position:relative;
+  border:1px solid rgba(89,119,178,.72);
+  background:linear-gradient(145deg,rgba(17,34,83,.97),rgba(7,20,60,.96));
+  border-radius:4px;
   overflow:hidden;
+  box-shadow:0 8px 22px rgba(0,0,0,.16);
+  transition:border-color .3s,box-shadow .3s,transform .3s;
 }
-
+.letter:hover{border-color:rgba(126,230,140,.58);box-shadow:0 12px 28px rgba(0,0,0,.24);transform:translateY(-2px)}
 .letter summary{
+  position:relative;
+  isolation:isolate;
   list-style:none;
   cursor:pointer;
   padding:15px 16px 17px;
   min-height:150px;
-
   display:flex;
   flex-direction:column;
   justify-content:space-between;
   gap:10px;
+  background:linear-gradient(135deg,rgba(28,48,105,.8),rgba(7,20,60,.18));
 }
+.letter summary::before{
+  content:"";
+  position:absolute;
+  z-index:-1;
+  inset:0;
+  background:linear-gradient(145deg,transparent 49.55%,rgba(126,230,140,.17) 49.8%,rgba(126,230,140,.17) 50.2%,transparent 50.45%),linear-gradient(215deg,transparent 49.55%,rgba(126,230,140,.13) 49.8%,rgba(126,230,140,.13) 50.2%,transparent 50.45%);
+  opacity:.9;
+  pointer-events:none;
+}
+.letter summary::after{
+  content:"";
+  position:absolute;
+  z-index:2;
+  top:0;
+  left:0;
+  width:100%;
+  height:58%;
+  background:linear-gradient(180deg,rgba(126,230,140,.13),rgba(65,85,138,.12));
+  border-bottom:1px solid rgba(126,230,140,.2);
+  clip-path:polygon(0 0,100% 0,50% 62%);
+  transform-origin:top center;
+  transition:transform .48s cubic-bezier(.2,.75,.25,1),opacity .3s;
+  pointer-events:none;
+}
+.letter[open] summary::after{transform:rotateX(180deg);opacity:.35}
+.letter summary>*{position:relative;z-index:1}
 
 .letter summary::-webkit-details-marker{
   display:none;
@@ -288,18 +319,19 @@ main{
   align-self:flex-end;
 }
 
-.letter[open] summary{
-  border-bottom:1px solid var(--line);
-}
-
+.letter[open] summary{border-bottom:1px solid rgba(126,230,140,.24)}
+.envicon{transition:transform .45s cubic-bezier(.2,.75,.25,1),color .3s}
+.letter[open] .envicon{transform:rotateX(180deg) scale(1.12);color:#b8f5bd}
 .letterbody{
   padding:22px;
-  background:#050f38;
+  background:linear-gradient(155deg,#07143d,#050f38);
   color:#e7ebfa;
   font-weight:400;
   font-style:normal;
   white-space:pre-wrap;
 }
+.letter[open] .letterbody,.letter[open] .sealed-message{animation:letter-unfold .48s cubic-bezier(.2,.75,.25,1) both}
+@keyframes letter-unfold{from{opacity:0;transform:translateY(-12px);clip-path:inset(0 0 100% 0)}to{opacity:1;transform:translateY(0);clip-path:inset(0 0 0 0)}}
 
 .sign{
   margin-top:18px;
@@ -348,27 +380,29 @@ main{
   display:none;
   position:fixed;
   inset:0;
-  background:rgba(0,4,22,.78);
-  padding:20px;
+  background:rgba(0,4,22,.76);
+  backdrop-filter:blur(7px);
+  -webkit-backdrop-filter:blur(7px);
+  padding:22px;
   align-items:center;
   justify-content:center;
-  z-index:5;
+  z-index:20;
 }
-
-.overlay.show{
-  display:flex;
-}
-
+.overlay.show{display:flex;animation:modalFade .2s ease}
 .formcard{
+  position:relative;
   width:min(100%,540px);
-  max-height:90vh;
+  max-height:min(88vh,760px);
   overflow:auto;
-  background:#07123d;
-  border:1px solid var(--line);
-  border-radius:12px;
-  padding:28px;
-  box-shadow:0 18px 60px rgba(0,0,0,.45);
+  background:linear-gradient(145deg,#0d1b4a,#07123d);
+  border:1px solid rgba(126,230,140,.3);
+  border-radius:3px;
+  padding:25px 30px 30px;
+  box-shadow:0 25px 80px rgba(0,0,0,.42);
+  animation:modalRise .28s ease;
 }
+@keyframes modalFade{from{opacity:0}to{opacity:1}}
+@keyframes modalRise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 
 .formhead{
   display:flex;
@@ -380,22 +414,29 @@ main{
 .formhead h2{
   font-size:22px;
   margin:0;
-  color:var(--ink);
+  color:#eef2ff;
+  font-weight:500;
+  font-style:italic;
 }
 
 .close{
   border:0;
   background:none;
-  color:var(--green);
+  color:#aeb9dd;
   font:inherit;
-  font-size:24px;
+  font-size:25px;
+  line-height:1;
   cursor:pointer;
+  transition:color .2s,transform .2s;
 }
+.close:hover{color:#7ee68c;transform:rotate(90deg)}
 
 .field{
   display:block;
   margin:17px 0 7px;
-  color:var(--ink);
+  color:#c7d2f2;
+  font-size:13px;
+  font-style:italic;
 }
 
 .formcard input,
@@ -413,6 +454,7 @@ main{
 .formcard textarea::placeholder{
   color:#7785ad;
 }
+.formcard input:focus,.formcard textarea:focus{outline:2px solid rgba(126,230,140,.38);outline-offset:1px;border-color:#7ee68c}
 
 .formcard textarea{
   min-height:170px;
@@ -521,6 +563,9 @@ main{
 
 @media(prefers-reduced-motion:reduce){
   .firefly{display:none}
+  .letter,.letter summary::after,.envicon{transition:none!important}
+  .letter[open] .letterbody,.letter[open] .sealed-message{animation:none!important}
+  .overlay.show,.formcard{animation:none!important}
 }
 
 </style>
