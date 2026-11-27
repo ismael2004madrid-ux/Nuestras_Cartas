@@ -246,15 +246,6 @@ main{
   gap:10px;
   background:linear-gradient(135deg,rgba(28,48,105,.8),rgba(7,20,60,.18));
 }
-.letter summary::before{
-  content:"";
-  position:absolute;
-  z-index:-1;
-  inset:0;
-  background:linear-gradient(145deg,transparent 49.55%,rgba(126,230,140,.17) 49.8%,rgba(126,230,140,.17) 50.2%,transparent 50.45%),linear-gradient(215deg,transparent 49.55%,rgba(126,230,140,.13) 49.8%,rgba(126,230,140,.13) 50.2%,transparent 50.45%);
-  opacity:.9;
-  pointer-events:none;
-}
 .letter summary::after{
   content:"";
   position:absolute;
@@ -672,7 +663,7 @@ main{
     <div class="formhead">
 
       <h2 id="formTitle">
-        Escribir una carta
+        Escribe una carta
       </h2>
 
       <button
@@ -748,19 +739,9 @@ main{
       required
     >
 
-    <p class="hint" id="formHint">
-      Al guardar, la carta aparecerá la primera en el buzón.
-    </p>
+    <p class="hint" id="formHint"></p>
 
     <div class="formbuttons">
-
-      <button
-        type="button"
-        class="btn"
-        id="cancel"
-      >
-        Cancelar
-      </button>
 
       <button
         class="btn"
@@ -1117,7 +1098,7 @@ function makeCard(item){
 
     }else{
 
-      formTitle.textContent='Escribir una carta';
+      formTitle.textContent='Escribe una carta';
 
       titleLabel.textContent='Título de la carta';
 
@@ -1131,7 +1112,7 @@ function makeCard(item){
 
       messageInput.placeholder='Escribe aquí todo lo que quieras contar…';
 
-      formHint.textContent='Al guardar, la carta aparecerá la primera en el buzón.';
+      formHint.textContent='';
 
       submitButton.textContent='Guardar carta ♡';
 
@@ -1161,13 +1142,6 @@ function makeCard(item){
 
   document
     .getElementById('closeForm')
-    .addEventListener(
-      'click',
-      hide
-    );
-
-  document
-    .getElementById('cancel')
     .addEventListener(
       'click',
       hide
