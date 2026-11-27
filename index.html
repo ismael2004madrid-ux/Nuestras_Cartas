@@ -1144,7 +1144,7 @@ function makeCard(item){
 
     if(type==='capsule'){
 
-      stampLabel.textContent='Sello de la cápsula (opcional)';
+      stampLabel.innerHTML='Sello <span class="optional">(opcional)</span>';
       formTitle.textContent='Crea una cápsula del tiempo';
 
       titleLabel.textContent='Título de la cápsula';
@@ -1166,7 +1166,7 @@ function makeCard(item){
 
     }else{
 
-      stampLabel.textContent='Sello de la carta (opcional)';
+      stampLabel.innerHTML='Sello <span class="optional">(opcional)</span>';
       formTitle.textContent='Escribe una carta';
 
       titleLabel.textContent='Título de la carta';
