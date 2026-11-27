@@ -276,9 +276,13 @@ main{
   position:relative;
   z-index:3;
 }
-.envsymbols{display:flex;align-items:center;gap:9px;min-width:0}
-.stamp-frame{width:32px;height:32px;padding:3px;flex:none;display:grid;place-items:center;border:1px dashed rgba(126,230,140,.32);border-radius:2px;background:rgba(126,230,140,.07);opacity:.78}
-.stamp-frame img{display:block;width:24px;height:24px;object-fit:cover;border:0;border-radius:1px;background:rgba(10,21,64,.28)}
+.envsymbols{display:flex;align-items:center;gap:8px;min-width:0}
+.envtop{align-items:flex-start;min-height:42px}
+.envicon{flex:none}
+.stamp-frame{width:27px;height:27px;padding:2px;flex:none;display:grid;place-items:center;border:1px dashed rgba(126,230,140,.25);border-radius:2px;background:rgba(126,230,140,.045);opacity:.68;transform-origin:center;transition:opacity .38s ease,transform .48s cubic-bezier(.2,.75,.25,1),filter .38s ease}
+.stamp-frame img{display:block;width:21px;height:21px;object-fit:cover;border:0;border-radius:1px;background:rgba(10,21,64,.2)}
+.letter[open] .stamp-frame{opacity:0;transform:translateY(-9px) scale(.58) rotate(-13deg);filter:blur(2px);pointer-events:none}
+.optional{opacity:.48;font-size:.9em;font-style:italic}
 
 .envicon{
   color:var(--green);
@@ -757,7 +761,7 @@ main{
       required
     >
 
-    <label class="field" id="stampLabel" for="stampImage">Sello de la carta (opcional)</label>
+    <label class="field" id="stampLabel" for="stampImage">Sello <span class="optional">(opcional)</span></label>
     <input id="stampImage" name="stampImage" type="file" accept="image/*" aria-label="Subir imagen para el sello">
     <div class="stamp-preview" id="stampPreview" hidden>
       <img id="stampPreviewImage" alt="Vista previa del sello">
