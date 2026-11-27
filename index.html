@@ -272,7 +272,13 @@ main{
   display:flex;
   justify-content:space-between;
   align-items:center;
+  min-height:44px;
+  position:relative;
+  z-index:3;
 }
+.envsymbols{display:flex;align-items:center;gap:9px;min-width:0}
+.stamp-frame{width:44px;height:44px;padding:5px;flex:none;display:grid;place-items:center;background:radial-gradient(circle at 4px 4px,transparent 2px,rgba(126,230,140,.95) 2.5px) 0 0/8px 8px;filter:drop-shadow(0 2px 4px rgba(0,0,0,.28))}
+.stamp-frame img{display:block;width:34px;height:34px;object-fit:cover;border:1px solid rgba(126,230,140,.55);background:#0a1540}
 
 .envicon{
   color:var(--green);
@@ -362,6 +368,9 @@ main{
   position:relative;
   z-index:3;
 }
+.back .btn{display:inline-block;margin-top:12px;padding:10px 22px;border:1px solid var(--sage);border-radius:999px;color:var(--ink);background:transparent;text-decoration:none;font:inherit;font-size:13px;transition:background .2s,border-color .2s}
+.back .btn:hover{background:var(--green);border-color:var(--green)}
+.back .btn:focus-visible{outline:2px solid var(--green);outline-offset:4px}
 
 /* =========================================================
    FORMULARIO
@@ -455,9 +464,16 @@ main{
 .formbuttons{
   display:flex;
   gap:10px;
-  justify-content:flex-end;
+  justify-content:center;
   margin-top:20px;
 }
+.formbuttons .btn{min-width:170px;text-align:center}
+.formcard input[type=file]{width:100%;padding:9px;border:1px dashed rgba(126,230,140,.42);border-radius:5px;background:rgba(2,12,50,.55);color:var(--muted);font:400 12px 'Domine',Georgia,serif}
+.formcard input[type=file]::file-selector-button{margin-right:10px;padding:7px 10px;border:1px solid var(--sage);border-radius:999px;background:transparent;color:var(--ink);font:inherit;cursor:pointer}
+.formcard input[type=file]::file-selector-button:hover{background:#101e4d}
+.stamp-preview{display:flex;align-items:center;gap:10px;margin-top:10px;color:var(--muted);font-size:11px}
+.stamp-preview[hidden]{display:none}
+.stamp-preview img{width:48px;height:48px;object-fit:cover;padding:4px;border:1px dashed rgba(126,230,140,.65);background:#0a1540;border-radius:3px}
 
 .hint{
   font:400 12px/1.5 'Domine',Georgia,serif;
@@ -709,6 +725,8 @@ main{
       required
     >
 
+    <p class="hint" id="formHint" hidden></p>
+
     <label
       class="field"
       for="message"
@@ -739,7 +757,12 @@ main{
       required
     >
 
-    <p class="hint" id="formHint"></p>
+    <label class="field" for="stampImage">Sello de la carta (opcional)</label>
+    <input id="stampImage" name="stampImage" type="file" accept="image/jpeg,image/png,image/webp,image/gif" aria-label="Subir imagen para el sello">
+    <div class="stamp-preview" id="stampPreview" hidden>
+      <img id="stampPreviewImage" alt="Vista previa del sello">
+      <span>Así aparecerá el sello en el sobre.</span>
+    </div>
 
     <div class="formbuttons">
 
@@ -764,6 +787,7 @@ main{
   Carta guardada en vuestro buzón ♡
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 
 (()=>{
@@ -773,6 +797,8 @@ main{
   const SUPABASE_ANON_KEY="sb_publishable_OJ4xv5YVnCyLNA6L9P8D4w_M4s2AkBz";
 
   const API_URL=`${SUPABASE_URL}/rest/v1/letters`;
+  const storageClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
+  const STAMP_BUCKET='letter-stamps';
 
   const headers={
     apikey:SUPABASE_ANON_KEY,
@@ -792,6 +818,25 @@ main{
   const messageInput=document.getElementById('message');
   const formHint=document.getElementById('formHint');
   const submitButton=document.getElementById('submitButton');
+  const stampInput=document.getElementById('stampImage');
+  const stampPreview=document.getElementById('stampPreview');
+  const stampPreviewImage=document.getElementById('stampPreviewImage');
+  let stampPreviewUrl=null;
+
+  function clearStampPreview(){
+    if(stampPreviewUrl)URL.revokeObjectURL(stampPreviewUrl);
+    stampPreviewUrl=null;
+    stampPreviewImage.removeAttribute('src');
+    stampPreview.hidden=true;
+  }
+  stampInput.addEventListener('change',()=>{
+    clearStampPreview();
+    const file=stampInput.files&&stampInput.files[0];
+    if(!file)return;
+    stampPreviewUrl=URL.createObjectURL(file);
+    stampPreviewImage.src=stampPreviewUrl;
+    stampPreview.hidden=false;
+  });
 
   let savedLetters=[];
   let currentEntryType='letter';
@@ -892,12 +937,25 @@ function makeCard(item){
 
   }
 
-  const dt=document.createElement('span');
+  const symbols=document.createElement('div');
+  symbols.className='envsymbols';
+  if(item.stampPath){
+    const stampFrame=document.createElement('span');
+    stampFrame.className='stamp-frame';
+    const stamp=document.createElement('img');
+    stamp.src=storageClient.storage.from(STAMP_BUCKET).getPublicUrl(item.stampPath).data.publicUrl;
+    stamp.alt='Sello de la carta';
+    stamp.loading='lazy';
+    stampFrame.append(stamp);
+    symbols.append(stampFrame);
+  }
+  symbols.append(icon);
 
+  const dt=document.createElement('span');
   dt.className='date';
   dt.textContent=formatDate(item.date);
 
-  top.append(icon,dt);
+  top.append(symbols,dt);
 
   const subject=document.createElement('span');
 
@@ -995,7 +1053,7 @@ function makeCard(item){
 
       const response=await fetch(
 
-        `${API_URL}?select=id,title,letter_date,message,signature,is_capsule,created_at&order=created_at.desc`,
+        `${API_URL}?select=id,title,letter_date,message,signature,is_capsule,stamp_path,created_at&order=created_at.desc`,
 
         {
           headers:{
@@ -1031,6 +1089,8 @@ function makeCard(item){
         signature:row.signature,
 
         isCapsule:row.is_capsule===true,
+
+        stampPath:row.stamp_path||null,
 
         createdAt:new Date(
           row.created_at
@@ -1075,6 +1135,7 @@ function makeCard(item){
     currentEntryType=type;
 
     form.reset();
+    clearStampPreview();
 
     if(type==='capsule'){
 
@@ -1093,8 +1154,9 @@ function makeCard(item){
       messageInput.placeholder='Este mensaje permanecerá oculto hasta la fecha elegida…';
 
       formHint.textContent='La cápsula permanecerá sellada hasta el día que hayas elegido.';
+      formHint.hidden=false;
 
-      submitButton.textContent='Guardar cápsula ♡';
+      submitButton.textContent='Dejar cápsula ♡';
 
     }else{
 
@@ -1113,8 +1175,9 @@ function makeCard(item){
       messageInput.placeholder='Escribe aquí todo lo que quieras contar…';
 
       formHint.textContent='';
+      formHint.hidden=true;
 
-      submitButton.textContent='Guardar carta ♡';
+      submitButton.textContent='Dejar carta ♡';
 
     }
 
@@ -1179,9 +1242,15 @@ function makeCard(item){
 
       }
 
-      submitButton.disabled=true;
+      const stampFile=stampInput.files&&stampInput.files[0];
+      const allowedStampTypes=['image/jpeg','image/png','image/webp','image/gif'];
+      if(stampFile&&(!allowedStampTypes.includes(stampFile.type)||stampFile.size>5*1024*1024)){
+        alert('El sello debe ser JPG, PNG, WEBP o GIF y no superar los 5 MB.');
+        return;
+      }
 
-      submitButton.textContent='Guardando…';
+      submitButton.disabled=true;
+      submitButton.textContent='Dejando…';
 
       const item={
 
@@ -1201,11 +1270,22 @@ function makeCard(item){
             .trim(),
 
         is_capsule:
-          currentEntryType==='capsule'
+          currentEntryType==='capsule',
+
+        stamp_path:null
 
       };
 
       try{
+
+        if(stampFile){
+          const extension=({ 'image/jpeg':'jpg','image/png':'png','image/webp':'webp','image/gif':'gif' })[stampFile.type];
+          const unique=Date.now()+'-'+Math.random().toString(36).slice(2,10);
+          const path='stamps/'+unique+'.'+extension;
+          const {data:uploadedStamp,error:stampError}=await storageClient.storage.from(STAMP_BUCKET).upload(path,stampFile,{cacheControl:'3600',contentType:stampFile.type,upsert:false});
+          if(stampError)throw stampError;
+          item.stamp_path=uploadedStamp.path;
+        }
 
         const response=await fetch(
 
@@ -1238,6 +1318,7 @@ function makeCard(item){
         }
 
         form.reset();
+        clearStampPreview();
 
         hide();
 
@@ -1276,8 +1357,8 @@ function makeCard(item){
 
         submitButton.textContent=
           currentEntryType==='capsule'
-            ? 'Guardar cápsula ♡'
-            : 'Guardar carta ♡';
+            ? 'Dejar cápsula ♡'
+            : 'Dejar carta ♡';
 
       }
 
